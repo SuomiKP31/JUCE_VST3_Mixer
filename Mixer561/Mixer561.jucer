@@ -5,6 +5,9 @@
               version="0.0.1" companyName="Shin" companyEmail="zhixinfang@uvic.ca"
               pluginVST3Category="Fx">
   <MAINGROUP id="w8m4hb" name="Mixer561">
+    <GROUP id="{23A40B0D-2477-FDC2-3203-D677FF3C5184}" name="Resources">
+      <FILE id="K4gmsj" name="561Mixer.png" compile="0" resource="1" file="Resources/561Mixer.png"/>
+    </GROUP>
     <GROUP id="{0B866254-E1C8-F52A-B065-4062BC9913D9}" name="Source">
       <FILE id="HP1LPr" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
@@ -13,6 +16,10 @@
       <FILE id="nRxfKC" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="FsYVDb" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="tWVisb" name="TimeDomainProcessingComponent.h" compile="0"
+            resource="0" file="Source/TimeDomainProcessingComponent.h"/>
+      <FILE id="Am8s2N" name="TimeDomainProcessingComponent.cpp" compile="1"
+            resource="0" file="Source/TimeDomainProcessingComponent.cpp"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>
@@ -25,6 +32,7 @@
     <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
@@ -50,6 +58,7 @@
         <MODULEPATH id="juce_graphics" path="F:/JuceProject/JUCE/modules"/>
         <MODULEPATH id="juce_gui_basics" path="F:/JuceProject/JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="F:/JuceProject/JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="F:/JuceProject/JUCE/modules"/>
       </MODULEPATHS>
     </VS2019>
     <VS2022 targetFolder="Builds/VisualStudio2022">
@@ -70,6 +79,7 @@
         <MODULEPATH id="juce_graphics" path="F:/JuceProject/JUCE/modules"/>
         <MODULEPATH id="juce_gui_basics" path="F:/JuceProject/JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="F:/JuceProject/JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="F:/JuceProject/JUCE/modules"/>
       </MODULEPATHS>
     </VS2022>
   </EXPORTFORMATS>
