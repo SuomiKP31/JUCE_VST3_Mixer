@@ -22,8 +22,12 @@ There will be one simple audio player plugin and JUCE plugin host available in t
 ### The plugin host
 VST3 is a widely used standard for plugins in DAWs, therefore you can use this plugin in any composition software. However, a lightweight plugin host is enough for this project.
 The plugin host is available in the JUCE Framework, in the extra folder.
-After you extracted the JUCE package (which you can get [here](https://juce.com/get-juce/) ), you can find ProJucer.exe, open it and then open the project file(audiopluginhost.jucer) under JUCE\extras\AudioPluginHost.
-Then compile it in Visual Studio.
+
+Follow these steps:
+- After you extracted the JUCE package (which you can get [here](https://juce.com/get-juce/) ), you can find ProJucer.exe, open it.
+- and then open the project file(audiopluginhost.jucer) under JUCE\extras\AudioPluginHost.
+- Compile it in Visual Studio.
+- Find the compiled exe and run it!
 
 ### The audio player
 I forked a plugin from several years ago and made it compatible with modern JUCE. You can get the codes [here](https://github.com/SuomiKP31/AudioFilePlayerPlugin). Open it the same way as the plugin host and compile it.
