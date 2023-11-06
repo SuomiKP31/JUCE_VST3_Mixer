@@ -12,7 +12,7 @@
         <BUS index="0" layout="disabled"/>
       </INPUTS>
       <OUTPUTS>
-        <BUS index="0" layout="disabled"/>
+        <BUS index="0" layout="L R"/>
       </OUTPUTS>
     </LAYOUT>
   </FILTER>
@@ -34,7 +34,7 @@
   <FILTER uid="3" x="0.5" y="0.9" useARA="0">
     <PLUGIN name="Audio Output" descriptiveName="" format="Internal" category="I/O devices"
             manufacturer="JUCE" version="1.0" file="" uniqueId="724248cb"
-            isInstrument="0" fileTime="0" infoUpdateTime="0" numInputs="0"
+            isInstrument="0" fileTime="0" infoUpdateTime="0" numInputs="2"
             numOutputs="0" isShell="0" hasARAExtension="0" uid="724248cb"/>
     <STATE>0.</STATE>
     <LAYOUT>
@@ -61,28 +61,11 @@
       </OUTPUTS>
     </LAYOUT>
   </FILTER>
-  <FILTER uid="5" x="0.43" y="0.6008064516129032" useARA="0" uiLastX_Normal="992"
-          uiLastY_Normal="281" uiopen_Normal="0">
-    <PLUGIN name="Mixer561" format="VST3" category="Fx" manufacturer="Shin"
-            version="0.0.1" file="E:\2023&#31179;\JUCE_Realtime_Mixer_Demo\JUCE_VST3_Mixer\Mixer561\Builds\VisualStudio2022\x64\Release\VST3\Mixer561.vst3\Contents\x86_64-win\Mixer561.vst3"
-            uniqueId="199e917" isInstrument="0" fileTime="18b591b5c60" infoUpdateTime="18b5922a5f9"
-            numInputs="2" numOutputs="2" isShell="0" hasARAExtension="0"
-            uid="e95a3221"/>
-    <STATE>628.VMjLgrl....O+fWarAhckI2bo8la8HRLt.iHfTlai8FYo41Y8HRUTYTK3HxO9.BOVMEUy.Ea0cVZtMEcgQWY9vSRC8Vav8lak4Fc9LCN23RPUcTVugiQTcVRWg0bUYzXqkzQt3BQ1EDTEoFUAACQtDDRPokZAAkKNQkKR81XFo0PUczXlgkZhsVQG4RLEYTXvTkQtDjZtDjKt3hKt3hKnM0PD4BTEoFUAACQtDDRPokZAAkKOQkKR81XFo0PUczXlwTQgUWPWkkKXcEVxU0UY4BQPIDQt3hKt3hKt3hKq7jKtTETRUDUS4BQl4xaQYjKAoGTAwDNwL1PUczXlgkZhsVQG4RLEYTXvTkQtDjZtDjKt3hKt3hKtnmKD4BTEoFUAACQtDDRPokZAAkKNQkKSU2Xx.ELQcDRScWLgYWUF4RLEYTXvTkQtDjZtDjKt3hKt3hKtX2JC4BTEoFUAACQtDDRPokZAAkKKQkKTsVQwnkYXolXqUzQtDSQFEFLUYjKAolKA4hKt3hKt3BZSMDQt.UQpQUPvPjKAgDTZoVPP4xRT4BUqUTLZYlXTg0azXjKwTjQgASUF4RPp4RPt3hKt3hKtXVdtPjKPUjZTEDLD4RPHAkVpEDTt3DUtP0ZEEiVlQTUic1cVokdqcjKwTjQgASUF4RPp4RPt3hKtXVdLkmdqLjKt3hKt3hKt3hKtXlTU0DUQAURWoULEYzXqEEUXoWQF4RPDYFTzDzUXkWSG4RPDYmKtnWPt3hKt3hKt3hKJUELPUTPqI1aYcEV5UkQQcVTWgEOujzPu0Fbu4VYtQmO77hUSQ0LPwVcmklaSQWXzUlO..</STATE>
-    <LAYOUT>
-      <INPUTS>
-        <BUS index="0" layout="L R"/>
-      </INPUTS>
-      <OUTPUTS>
-        <BUS index="0" layout="L R"/>
-      </OUTPUTS>
-    </LAYOUT>
-  </FILTER>
   <FILTER uid="6" x="0.40125" y="0.3205645161290323" useARA="0" uiLastX_Normal="172"
           uiLastY_Normal="278" uiopen_Normal="0">
     <PLUGIN name="AudioFilePlayer" format="VST3" category="Instrument|Synth"
             manufacturer="NTwelve" version="1.0.0" file="F:\JuceProject\VST3\AudioFilePlayer.vst3"
-            uniqueId="18f58440" isInstrument="1" fileTime="17f67c5959a" infoUpdateTime="18b5922a5f9"
+            uniqueId="18f58440" isInstrument="1" fileTime="17f67c5959a" infoUpdateTime="18ba2aedee6"
             numInputs="0" numOutputs="2" isShell="0" hasARAExtension="0"
             uid="9e2bc43c"/>
     <STATE>370.VMjLgjV....O+fWarAhckI2bo8la8HRLt.iHfTlai8FYo41Y8HRUTYTK3HxO9.BOVMEUy.Ea0cVZtMEcgQWY9vSRC8Vav8lak4Fc9DSNy3hUMoFSmY2Qt3hKt7zJlcUXxEDZisVRxH1a3vVX3fjTLQmKogjYTwVXogiQY8FMwjENHIUUTkEUKMCR38TNtHzS1cmUi01ZrE1bLcUV5E0UZQ2XwHlYDY0XpsVLgw1ZFE1ZvjFRC81PWMzcwDFLQY0TvzzUZk1cqkTZLMDSx3RdMYCV3gDdPMDS3oVdNwFS3wTLDMTSzHWZIkFRCwjcPkGS13hTKYFQpszbAICSncCZO4hKt3hKt3hKt3hKtnTUv.UQAslXuk0UXoWUFE0YQcEVtPDTtHzZGI1YMIiXtPDTtLjKPcjKt3hKt3hKt3haTU0PUQDU3sFaicVTWkEQEYzXmEDOujzPu0Fbu4VYtQmO77hUSQ0LPwVcmklaSQWXzUlO..</STATE>
@@ -93,8 +76,25 @@
       </OUTPUTS>
     </LAYOUT>
   </FILTER>
-  <CONNECTION srcFilter="5" srcChannel="0" dstFilter="3" dstChannel="0"/>
-  <CONNECTION srcFilter="5" srcChannel="1" dstFilter="3" dstChannel="1"/>
-  <CONNECTION srcFilter="6" srcChannel="0" dstFilter="5" dstChannel="0"/>
-  <CONNECTION srcFilter="6" srcChannel="1" dstFilter="5" dstChannel="1"/>
+  <FILTER uid="7" x="0.455" y="0.594758064516129" useARA="0" uiLastX_Normal="686"
+          uiLastY_Normal="278" uiopen_Normal="0">
+    <PLUGIN name="Mixer561" format="VST3" category="Fx" manufacturer="Shin"
+            version="0.0.1" file="E:\2023&#31179;\JUCE_Realtime_Mixer_Demo\JUCE_VST3_Mixer\Mixer561\Builds\VisualStudio2022\x64\Release\VST3\Mixer561.vst3\Contents\x86_64-win\Mixer561.vst3"
+            uniqueId="199e917" isInstrument="0" fileTime="18ba2ac5e49" infoUpdateTime="18ba2aedee6"
+            numInputs="2" numOutputs="2" isShell="0" hasARAExtension="0"
+            uid="e95a3221"/>
+    <STATE>628.VMjLgrl....O+fWarAhckI2bo8la8HRLt.iHfTlai8FYo41Y8HRUTYTK3HxO9.BOVMEUy.Ea0cVZtMEcgQWY9vSRC8Vav8lak4Fc9LCN23RPUcTVugiQTcVRWg0bUYzXqkzQt3BQ1EDTEoFUAACQtDDRPokZAAkKNQkKR81XFo0PUczXlgkZhsVQG4RLEYTXvTkQtDjZtDjKt3hKt3hKnM0PD4BTEoFUAACQtDDRPokZAAkKOQkKR81XFo0PUczXlwTQgUWPWkkKXcEVxU0UY4BQPIDQt3hKt3hKt3hKq7jKtTETRUDUS4BQl4xaQYjKAoGTAwDNwL1PUczXlgkZhsVQG4RLEYTXvTkQtDjZtDjKt3hKt3hKtnmKD4BTEoFUAACQtDDRPokZAAkKNQkKSU2Xx.ELQcDRScWLgYWUF4RLEYTXvTkQtDjZtDjKt3hKt3hKt3hKt3BTEoFUAACQtDDRPokZAAkKKQkKTsVQwnkYXolXqUzQtDSQFEFLUYjKAolKA4hKt3hKtX2bxHDQt.UQpQUPvPjKAgDTZoVPP4xRT4BUqUTLZYlXTg0azXjKwTjQgASUF4RPp4RPt3hKt3hKt3BStvjKPUjZTEDLD4RPHAkVpEDTt3DUtP0ZEEiVlQTUic1cVokdqcjKwTjQgASUF4RPp4RPt3hKt3hKt3hcqLjKt3hKt3hKt3hKtXlTU0DUQAURWoULEYzXqEEUXoWQF4RPDYFTzDzUXkWSG4RPDYmKtnWPt3hKt3hKt3hKJUELPUTPqI1aYcEV5UkQQcVTWgEOujzPu0Fbu4VYtQmO77hUSQ0LPwVcmklaSQWXzUlO..</STATE>
+    <LAYOUT>
+      <INPUTS>
+        <BUS index="0" layout="L R"/>
+      </INPUTS>
+      <OUTPUTS>
+        <BUS index="0" layout="L R"/>
+      </OUTPUTS>
+    </LAYOUT>
+  </FILTER>
+  <CONNECTION srcFilter="6" srcChannel="0" dstFilter="7" dstChannel="0"/>
+  <CONNECTION srcFilter="6" srcChannel="1" dstFilter="7" dstChannel="1"/>
+  <CONNECTION srcFilter="7" srcChannel="0" dstFilter="3" dstChannel="0"/>
+  <CONNECTION srcFilter="7" srcChannel="1" dstFilter="3" dstChannel="1"/>
 </FILTERGRAPH>

@@ -41,8 +41,9 @@ private:
 	double gating = 0.05; // Minimum value of gating
 };
 
+// Templates should be implemented in headers!
 template <typename T>
-void Gate::process(T & val)
+void Gate::process(T& val)
 {
 	if (interval != 0)
 	{
@@ -55,7 +56,7 @@ void Gate::process(T & val)
 		// DBG(juce::String::formatted("aSample %d, rSample %d", attackSample, releaseSample));
 		getGateVal(val, attackSample, releaseSample, divCount);
 	}
-	
+
 
 	animator.update();
 	if (animator.getIsProgress()) {
@@ -72,7 +73,7 @@ void Gate::process(T & val)
 }
 
 template <typename T>
-void Gate::getGateVal(T & v, int & attackSample, int & releaseSample, int & divCount)
+void Gate::getGateVal(T& v, int& attackSample, int& releaseSample, int& divCount)
 {
 	// Map the volume multiplier from 0-1 based on where the sample index(divCount) sits
 	T volMod = 0;
@@ -81,13 +82,13 @@ void Gate::getGateVal(T & v, int & attackSample, int & releaseSample, int & divC
 	{
 		// Lower volume in the process of attack
 		progress = static_cast<double>(attackSample - divCount) / static_cast<double>(attackSample);
-		volMod = juce::jmap(progress, gating, 1.0+gating);
+		volMod = juce::jmap(progress, gating, 1.0 + gating);
 	}
 	else if (divCount > releaseSample)
 	{
 		const double rSampleAmount = curDivSize - releaseSample;
 		progress = static_cast<double>(divCount - releaseSample) / rSampleAmount;
-		volMod = juce::jmap(progress, gating, 1.0+gating);
+		volMod = juce::jmap(progress, gating, 1.0 + gating);
 	}
 	else
 	{
@@ -95,4 +96,3 @@ void Gate::getGateVal(T & v, int & attackSample, int & releaseSample, int & divC
 	}
 	v *= volMod;
 }
-

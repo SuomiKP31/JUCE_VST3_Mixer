@@ -12,69 +12,6 @@
 #include "TimeDomainProcessingComponent.h"
 
 
-double LabeledTextInputField::getNumber()
-{
-    auto s = getText().toStdString();
-    if(s.length()==0)
-    {
-        return 120;
-    }
-    return std::stof(s);
-}
-
-//-----------------TriggerButton
-
-void TriggerButton::OnStateChanged()
-{
-	TriggerAction action;
-	action = JudgeButtonAction(getState());
-	TakeAction(action);
-
-}
-
-
-TriggerButton::TriggerAction TriggerButton::JudgeButtonAction(ButtonState currentState)
-{
-	// DBG(juce::String::formatted("cache %d state %d", cachedState, currentState));
-	if (cachedState == buttonNormal)
-	{
-		cachedState = currentState;
-		if (currentState == buttonOver)
-		{
-			return None;
-		}
-		if (currentState == buttonDown)
-		{
-			return Activate;
-		}
-		return None;
-	}
-	if (cachedState == buttonOver)
-	{
-		cachedState = currentState;
-		if (currentState == buttonNormal)
-		{
-			return None;
-		}
-		if (currentState == buttonDown)
-		{
-			return Activate;
-		}
-		return None;
-	}
-	if (cachedState == buttonDown)
-	{
-		cachedState = currentState;
-		if (currentState == buttonDown)
-		{
-			return None;
-		}
-
-		return Deactivate;
-	}
-	return None;
-}
-
 // TODO: Trigger button actions
 
 TimeDomainProcessingComponent::TimeDomainProcessingComponent(Mixer561AudioProcessor&p) : audioProcessor(p)
@@ -126,6 +63,24 @@ void TimeDomainProcessingComponent::resized()
     bpmInput.setBounds(bpmBound);
 
 	// TODO: Button GUI
+	auto buttonW = bound.getWidth() * 0.25;
+	auto repeatBound = bound.removeFromLeft(buttonW);
+	auto repeatH = repeatBound.getHeight() * 0.25;
+
+	auto gateBound = bound.removeFromLeft(buttonW);
+	auto gateH = gateBound.getHeight() * 0.25;
+
+	std::vector tbtn{ &re8, & re12, & re16, & re32 };
+	for (int i = 0; i < 4; i++)
+	{
+		tbtn[i]->setBounds(repeatBound.removeFromTop(repeatH));
+
+	}
+	std::vector gbtn = { &ga8, &ga16, &ga24, &ga32 };
+	for (int i = 0; i < 4; i++)
+	{
+		gbtn[i]->setBounds(gateBound.removeFromTop(gateH));
+	}
 }
 
 
@@ -134,15 +89,55 @@ std::vector<juce::Component*> TimeDomainProcessingComponent::getComponent()
     return {
         &bpmInput,
         &bpmInput.labelComp,
+		& re8,& re12,& re16,& re32,
+		& ga8,& ga16,& ga24,& ga32,
     };
 }
 
 void TimeDomainProcessingComponent::setShortcuts()
 {
-	
+	re8.addShortcut(juce::KeyPress('q', juce::ModifierKeys::shiftModifier, 0));
+	re12.addShortcut(juce::KeyPress('w', juce::ModifierKeys::shiftModifier, 0));
+	re16.addShortcut(juce::KeyPress('e', juce::ModifierKeys::shiftModifier, 0));
+	re32.addShortcut(juce::KeyPress('r', juce::ModifierKeys::shiftModifier, 0));
+
+	ga8.addShortcut(juce::KeyPress('a', juce::ModifierKeys::shiftModifier, 0));
+	ga16.addShortcut(juce::KeyPress('s', juce::ModifierKeys::shiftModifier, 0));
+	ga24.addShortcut(juce::KeyPress('d', juce::ModifierKeys::shiftModifier, 0));
+	ga32.addShortcut(juce::KeyPress('f', juce::ModifierKeys::shiftModifier, 0));
 }
 
 void TimeDomainProcessingComponent::initButtons()
 {
 	// Init buttons and bind shortcuts here
+	//=== REPEAT *4 ===
+	std::vector tbtn{ &re8, & re12, & re16, & re32 };
+	std::vector suffix{ 8, 12, 16, 32 };
+	for (int i = 0; i < 4; i++)
+	{
+		char buttonText[20];
+		sprintf(buttonText, "RE%d", suffix[i]);
+		auto& btn = tbtn[i];
+		btn->setButtonText(buttonText);
+		btn->onStateChange = [btn] {btn->OnStateChanged(); };
+		btn->denominator = suffix[i];
+		btn->repeatProcessor = &audioProcessor.repeatProcessor;
+		btn->bpmInput = &bpmInput;
+	}
+
+	std::vector gbtn{ &ga8, & ga16, & ga24, & ga32 }; // GA24+ sounds really bad
+	suffix.assign({ 4, 8, 12, 16 });
+
+	//=== GATE *4 ===
+	for (int i = 0; i < 4; i++)
+	{
+		char buttonText[20];
+		sprintf(buttonText, "GA%d", suffix[i]);
+		auto& btn = gbtn[i];
+		btn->setButtonText(buttonText);
+		btn->onStateChange = [btn] {btn->OnStateChanged(); };
+		btn->denominator = suffix[i];
+		btn->gateProcessor = &audioProcessor.gateProcessor;
+		btn->bpmInput = &bpmInput;
+	}
 }

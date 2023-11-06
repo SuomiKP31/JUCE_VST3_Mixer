@@ -106,6 +106,7 @@ void Mixer561AudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
 
     // TODO: Init effectors here
 
+
     UpdateFilters();
 }
 
@@ -157,6 +158,8 @@ void Mixer561AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
         buffer.clear (i, 0, buffer.getNumSamples());
 
     // TODO: Resize effector DSP buffers here if needed
+    repeatProcessor.resizeRepeatProcessorByChannelNum(totalNumInputChannels);
+    gateProcessor.resizeGateProcessorByChannelNum(totalNumInputChannels);
 
 
     UpdateFilters();
@@ -173,6 +176,8 @@ void Mixer561AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
     auto sampleRate = getSampleRate();
 
     // Effectors run first
+    repeatProcessor.process(buffer, sampleRate);
+    gateProcessor.process(buffer, sampleRate);
 
     // Filters should run last
     leftChain.process(left_context);

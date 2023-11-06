@@ -9,6 +9,8 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "DSP/Repeat/RepeatProcessor.h"
+#include "DSP/Gate/GateProcessor.h"
 
 enum Slope_Choice
 {
@@ -145,6 +147,10 @@ public:
     //==============================================================================
     static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout(); // Create apvts, for saving our filter parameters
     juce::AudioProcessorValueTreeState apvts{*this, nullptr, "AudioParameter", createParameterLayout()};
+
+    //==============================================================================
+    RepeatProcessor repeatProcessor;
+    GateProcessor gateProcessor;
 
 private:
     //==============================================================================
