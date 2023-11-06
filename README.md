@@ -14,6 +14,11 @@ We will use JUCE Framework for this project, as it provides a ready-to-use GUI l
 For the first two weeks, there's mainly the GUI framework.
 After that, I implement a new effector for each update and explain how it works, and where it can come handy. (You might find some familiar voicelines actually processed by those effectors!) 
 
+## Reference
+
+[musicdsp.org](https://www.musicdsp.org)
+[Unnamed SDVX Clone - DSP Implementations](https://github.com/Drewol/unnamed-sdvx-clone/blob/develop/Audio/include/Audio/DSP.hpp)
+
 ## Setup Guide
 
 To play with the vst plugin, you can download the release package(TODO) or compile using Visual Studio 2022 by yourself.
@@ -65,3 +70,27 @@ Play the audio, then start to turn the knobs.
 Added basic GUI frameworks and Cut Filters, this part is mostly from a Freecodecamp Tutorial (https://www.youtube.com/watch?v=i_Iq4_Kd7Rc)
 However, since we are going a different direction, I made some changes and preparations for effectors. A new component is created to hold effector buttons, another new one will be added in the future to host launchpads.
 ![image](https://github.com/SuomiKP31/JUCE_VST3_Mixer/assets/50021290/1f87038f-7097-444c-b8c5-cddeb59b9d89)
+
+## Update Nov 6, 2023
+Two new effects added, occupying 8 slots.
+These two showcases time-domain DSP, i.e. they are not doing frequency filtering. We'll have some frequency-domain stuff next time.
+
+![image](https://github.com/SuomiKP31/JUCE_VST3_Mixer/assets/50021290/5e3f5cd6-5667-4f2a-a168-079daef83b29)
+
+
+### RE (Resample / Repeat)
+Resample is probably the simplest time domain effect. In real time mixing or composing, it might be used to create glitch effects, or simply alternate how you want the music to play out.
+Note that in order to make it sound proper, a correct BPM (Beats Per Minute) parameter is needed, because resample will interrupt the rhythm if the BPM is wrong, or the effect is applied at the wrong moment.
+
+Behind the scenes, once RE_x is enabled, the program starts to collect a sample array of the same length as an x_th note as the music goes. Say you press RE4, then the resample array will be exactly the length of a beat (1/4 note).
+After the collection is complete, the resample effect just repeats this sample as your output, until you release.
+
+This effect is rarely used in composing because for the most part it doesn't sound quite right. However, if you are deliberately create glitchy hearings, then it is your best bet!
+
+### GA (Gate)
+Gate is commonly used in a genre called Psy Trance. Similar to RE, it also works according to musical time.
+
+Once GA_x is enabled, the program starts a noise gate that is moving linearly up and down along with the time axis. It will reach its peak at exactly the attack time of each x_th note, fall and rise again, reaching its peak once more on the next x_th note.
+
+This will greatly emphasize the perception of certain notes on the beats, because audio samples in between will be weaker compared to the on-beat ones. Therefore it's especially good for Trances, where the rhythm of the song is mostly unaltered throughout.
+
