@@ -75,6 +75,8 @@ However, since we are going a different direction, I made some changes and prepa
 Two new effects added, occupying 8 slots.
 These two showcases time-domain DSP, i.e. they are not doing frequency filtering. We'll have some frequency-domain stuff next time.
 
+More implementation details on effects will be included in Project Report.
+
 ![image](https://github.com/SuomiKP31/JUCE_VST3_Mixer/assets/50021290/5e3f5cd6-5667-4f2a-a168-079daef83b29)
 
 
