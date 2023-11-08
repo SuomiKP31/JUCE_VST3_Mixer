@@ -49,8 +49,8 @@ void BitCrusherProcessor::process(juce::AudioBuffer<float>& buffer, double sampl
 }
 
 
-BitCrusherProcessor::BitCrusherProcessor(int bitDepth, int rateDivide, bool bypass)
-	: bitDepth(bitDepth), rateDivide(rateDivide), bypass(bypass)
+BitCrusherProcessor::BitCrusherProcessor(int bitDepth, int rateDivide)
+	: bitDepth(bitDepth), rateDivide(rateDivide)
 {
 	// Member Initializer List
 }

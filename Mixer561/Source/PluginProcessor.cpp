@@ -22,7 +22,6 @@ Mixer561AudioProcessor::Mixer561AudioProcessor()
                        )
 #endif
 {
-    bitcrusherProcessor = BitCrusherProcessor(8, 10, true);
 }
 
 Mixer561AudioProcessor::~Mixer561AudioProcessor()

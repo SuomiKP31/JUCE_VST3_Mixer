@@ -76,7 +76,7 @@ void TimeDomainProcessingComponent::resized()
 		tbtn[i]->setBounds(repeatBound.removeFromTop(repeatH));
 
 	}
-	std::vector gbtn = { &ga8, &ga16, &ga24, &ga32 };
+	std::vector gbtn = { &ga4, &ga8, &ga12, &ga16 };
 	for (int i = 0; i < 4; i++)
 	{
 		gbtn[i]->setBounds(gateBound.removeFromTop(gateH));
@@ -97,7 +97,7 @@ std::vector<juce::Component*> TimeDomainProcessingComponent::getComponent()
         &bpmInput,
         &bpmInput.labelComp,
 		& re8,& re12,& re16,& re32,
-		& ga8,& ga16,& ga24,& ga32,
+		& ga4,& ga8,& ga12,& ga16,
 		& fl1,& bc1,& ph1,& tp1 
     };
 }
@@ -109,10 +109,10 @@ void TimeDomainProcessingComponent::setShortcuts()
 	re16.addShortcut(juce::KeyPress('e', juce::ModifierKeys::shiftModifier, 0));
 	re32.addShortcut(juce::KeyPress('r', juce::ModifierKeys::shiftModifier, 0));
 
-	ga8.addShortcut(juce::KeyPress('a', juce::ModifierKeys::shiftModifier, 0));
-	ga16.addShortcut(juce::KeyPress('s', juce::ModifierKeys::shiftModifier, 0));
-	ga24.addShortcut(juce::KeyPress('d', juce::ModifierKeys::shiftModifier, 0));
-	ga32.addShortcut(juce::KeyPress('f', juce::ModifierKeys::shiftModifier, 0));
+	ga4.addShortcut(juce::KeyPress('a', juce::ModifierKeys::shiftModifier, 0));
+	ga8.addShortcut(juce::KeyPress('s', juce::ModifierKeys::shiftModifier, 0));
+	ga12.addShortcut(juce::KeyPress('d', juce::ModifierKeys::shiftModifier, 0));
+	ga16.addShortcut(juce::KeyPress('f', juce::ModifierKeys::shiftModifier, 0));
 
 	fl1.addShortcut(juce::KeyPress('z', juce::ModifierKeys::shiftModifier, 0));
 	ph1.addShortcut(juce::KeyPress('x', juce::ModifierKeys::shiftModifier, 0));
@@ -138,7 +138,7 @@ void TimeDomainProcessingComponent::initButtons()
 		btn->bpmInput = &bpmInput;
 	}
 
-	std::vector gbtn{ &ga8, & ga16, & ga24, & ga32 }; // GA24+ sounds really bad
+	std::vector gbtn{ &ga4, & ga8, & ga12, & ga16 }; // GA24+ sounds really bad
 	suffix.assign({ 4, 8, 12, 16 });
 
 	//=== GATE *4 ===

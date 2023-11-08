@@ -20,8 +20,5 @@ public:
 	void process(juce::AudioBuffer<float>& buffer, double sampleRate) override;
 
 	BitCrusherProcessor() = default;
-	BitCrusherProcessor(int bitDepth, int rateDivide, bool bypass);
-
-protected:
-	bool bypass = true;
+	BitCrusherProcessor(int bitDepth, int rateDivide);
 };
