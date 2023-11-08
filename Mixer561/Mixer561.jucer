@@ -12,6 +12,10 @@
       <FILE id="RRFj5a" name="BaseGUIComp.cpp" compile="1" resource="0" file="Source/BaseGUIComp.cpp"/>
       <FILE id="bupHHc" name="BaseGUIComp.h" compile="0" resource="0" file="Source/BaseGUIComp.h"/>
       <GROUP id="{1EEE833E-B99D-A455-51E0-C021729035ED}" name="Buttons">
+        <FILE id="BHyLrs" name="FreqEffectButton.cpp" compile="1" resource="0"
+              file="Source/Buttons/FreqEffectButton.cpp"/>
+        <FILE id="koqtvv" name="FreqEffectButton.h" compile="0" resource="0"
+              file="Source/Buttons/FreqEffectButton.h"/>
         <FILE id="Ycs9ug" name="GateButton.cpp" compile="1" resource="0" file="Source/Buttons/GateButton.cpp"/>
         <FILE id="c3bhhf" name="GateButton.h" compile="0" resource="0" file="Source/Buttons/GateButton.h"/>
         <FILE id="cyJZrI" name="RepeatButton.cpp" compile="1" resource="0"
@@ -19,12 +23,30 @@
         <FILE id="QttiII" name="RepeatButton.h" compile="0" resource="0" file="Source/Buttons/RepeatButton.h"/>
       </GROUP>
       <GROUP id="{61D61DE2-CF69-6DE6-5290-BE063AFF2BEC}" name="DSP">
+        <GROUP id="{E14D586A-3E4E-A4A9-99F5-CC6849DC52EE}" name="BitCrusher">
+          <FILE id="gz2UMK" name="BitCrusherProcessor.cpp" compile="1" resource="0"
+                file="Source/DSP/BitCrusher/BitCrusherProcessor.cpp"/>
+          <FILE id="wZE7AC" name="BitCrusherProcessor.h" compile="0" resource="0"
+                file="Source/DSP/BitCrusher/BitCrusherProcessor.h"/>
+        </GROUP>
+        <GROUP id="{0FE34B50-50BD-2417-46CA-D7E72C6F3FE8}" name="Flanger">
+          <FILE id="QDQw14" name="FlangerProcessor.cpp" compile="1" resource="0"
+                file="Source/DSP/Flanger/FlangerProcessor.cpp"/>
+          <FILE id="Owl78Z" name="FlangerProcessor.h" compile="0" resource="0"
+                file="Source/DSP/Flanger/FlangerProcessor.h"/>
+        </GROUP>
         <GROUP id="{17FCCA6F-A4F7-9CB3-57AE-4D546AE612AC}" name="Gate">
           <FILE id="JdFEaM" name="Gate.cpp" compile="1" resource="0" file="Source/DSP/Gate/Gate.cpp"/>
           <FILE id="lTQvgH" name="Gate.h" compile="0" resource="0" file="Source/DSP/Gate/Gate.h"/>
           <FILE id="bo7ckR" name="GateProcessor.cpp" compile="1" resource="0"
                 file="Source/DSP/Gate/GateProcessor.cpp"/>
           <FILE id="qL9ub4" name="GateProcessor.h" compile="0" resource="0" file="Source/DSP/Gate/GateProcessor.h"/>
+        </GROUP>
+        <GROUP id="{9866F702-F25B-EEAE-D831-241E1A29E4DB}" name="Phaser">
+          <FILE id="ZxHAU4" name="PhaserProcessor.cpp" compile="1" resource="0"
+                file="Source/DSP/Phaser/PhaserProcessor.cpp"/>
+          <FILE id="U6oZnU" name="PhaserProcessor.h" compile="0" resource="0"
+                file="Source/DSP/Phaser/PhaserProcessor.h"/>
         </GROUP>
         <GROUP id="{C7FFA8F3-FEDE-F975-9950-356F6732C01A}" name="Repeat">
           <FILE id="tOLW3W" name="Repeat.cpp" compile="1" resource="0" file="Source/DSP/Repeat/Repeat.cpp"/>
@@ -34,10 +56,21 @@
           <FILE id="Fm1mhp" name="RepeatProcessor.h" compile="0" resource="0"
                 file="Source/DSP/Repeat/RepeatProcessor.h"/>
         </GROUP>
+        <GROUP id="{122EBE55-9758-AA4E-E9D4-6E9F7FC3DDEB}" name="TapeStop">
+          <FILE id="OL3EXw" name="TapeStop.h" compile="0" resource="0" file="Source/DSP/TapeStop/TapeStop.h"/>
+          <FILE id="uodMVa" name="TapeStopProcessor.cpp" compile="1" resource="0"
+                file="Source/DSP/TapeStop/TapeStopProcessor.cpp"/>
+          <FILE id="nbieST" name="TapeStopProcessor.h" compile="0" resource="0"
+                file="Source/DSP/TapeStop/TapeStopProcessor.h"/>
+        </GROUP>
         <FILE id="p424P8" name="AnimatorByCount.h" compile="0" resource="0"
               file="Source/DSP/AnimatorByCount.h"/>
         <FILE id="q7uBTS" name="AttachedControlBase.h" compile="0" resource="0"
               file="Source/DSP/AttachedControlBase.h"/>
+        <FILE id="aarK8X" name="FreqEffectProcessor.cpp" compile="1" resource="0"
+              file="Source/DSP/FreqEffectProcessor.cpp"/>
+        <FILE id="bUJYep" name="FreqEffectProcessor.h" compile="0" resource="0"
+              file="Source/DSP/FreqEffectProcessor.h"/>
       </GROUP>
       <GROUP id="{6869B518-B075-BDEC-FA8C-4642F6728496}" name="LFO">
         <FILE id="dgaJvf" name="LFO.cpp" compile="1" resource="0" file="Source/LFO/LFO.cpp"/>

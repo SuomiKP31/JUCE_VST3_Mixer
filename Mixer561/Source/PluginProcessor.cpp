@@ -22,6 +22,7 @@ Mixer561AudioProcessor::Mixer561AudioProcessor()
                        )
 #endif
 {
+    bitcrusherProcessor = BitCrusherProcessor(8, 10, true);
 }
 
 Mixer561AudioProcessor::~Mixer561AudioProcessor()
@@ -105,7 +106,9 @@ void Mixer561AudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
     rightChain.prepare(spec);
 
     // TODO: Init effectors here
-
+    flangerProcessor.setupDelayBuffer(getTotalNumInputChannels(), getSampleRate());
+    phaserProcessor.setupFilters(getTotalNumInputChannels(), getSampleRate());
+    tapestopProcessor.setupTapeBuffer(getTotalNumInputChannels(), getSampleRate());
 
     UpdateFilters();
 }
@@ -178,6 +181,10 @@ void Mixer561AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
     // Effectors run first
     repeatProcessor.process(buffer, sampleRate);
     gateProcessor.process(buffer, sampleRate);
+    flangerProcessor.process(buffer, sampleRate);
+    phaserProcessor.process(buffer, sampleRate);
+    bitcrusherProcessor.process(buffer, sampleRate);
+    tapestopProcessor.process(buffer, sampleRate);
 
     // Filters should run last
     leftChain.process(left_context);

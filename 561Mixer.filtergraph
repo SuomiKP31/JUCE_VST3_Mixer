@@ -61,11 +61,11 @@
       </OUTPUTS>
     </LAYOUT>
   </FILTER>
-  <FILTER uid="6" x="0.40125" y="0.3205645161290323" useARA="0" uiLastX_Normal="172"
-          uiLastY_Normal="278" uiopen_Normal="0">
+  <FILTER uid="6" x="0.40125" y="0.3205645161290323" useARA="0" uiLastX_Normal="1173"
+          uiLastY_Normal="465" uiopen_Normal="0">
     <PLUGIN name="AudioFilePlayer" format="VST3" category="Instrument|Synth"
             manufacturer="NTwelve" version="1.0.0" file="F:\JuceProject\VST3\AudioFilePlayer.vst3"
-            uniqueId="18f58440" isInstrument="1" fileTime="17f67c5959a" infoUpdateTime="18ba2aedee6"
+            uniqueId="18f58440" isInstrument="1" fileTime="17f67c5959a" infoUpdateTime="18bad8e7c43"
             numInputs="0" numOutputs="2" isShell="0" hasARAExtension="0"
             uid="9e2bc43c"/>
     <STATE>370.VMjLgjV....O+fWarAhckI2bo8la8HRLt.iHfTlai8FYo41Y8HRUTYTK3HxO9.BOVMEUy.Ea0cVZtMEcgQWY9vSRC8Vav8lak4Fc9DSNy3hUMoFSmY2Qt3hKt7zJlcUXxEDZisVRxH1a3vVX3fjTLQmKogjYTwVXogiQY8FMwjENHIUUTkEUKMCR38TNtHzS1cmUi01ZrE1bLcUV5E0UZQ2XwHlYDY0XpsVLgw1ZFE1ZvjFRC81PWMzcwDFLQY0TvzzUZk1cqkTZLMDSx3RdMYCV3gDdPMDS3oVdNwFS3wTLDMTSzHWZIkFRCwjcPkGS13hTKYFQpszbAICSncCZO4hKt3hKt3hKt3hKtnTUv.UQAslXuk0UXoWUFE0YQcEVtPDTtHzZGI1YMIiXtPDTtLjKPcjKt3hKt3hKt3haTU0PUQDU3sFaicVTWkEQEYzXmEDOujzPu0Fbu4VYtQmO77hUSQ0LPwVcmklaSQWXzUlO..</STATE>
@@ -76,14 +76,14 @@
       </OUTPUTS>
     </LAYOUT>
   </FILTER>
-  <FILTER uid="7" x="0.455" y="0.594758064516129" useARA="0" uiLastX_Normal="686"
-          uiLastY_Normal="278" uiopen_Normal="0">
+  <FILTER uid="8" x="0.425" y="0.5604838709677419" useARA="0" uiLastX_Normal="1570"
+          uiLastY_Normal="320" uiopen_Normal="0">
     <PLUGIN name="Mixer561" format="VST3" category="Fx" manufacturer="Shin"
             version="0.0.1" file="E:\2023&#31179;\JUCE_Realtime_Mixer_Demo\JUCE_VST3_Mixer\Mixer561\Builds\VisualStudio2022\x64\Release\VST3\Mixer561.vst3\Contents\x86_64-win\Mixer561.vst3"
-            uniqueId="199e917" isInstrument="0" fileTime="18ba2ac5e49" infoUpdateTime="18ba2aedee6"
+            uniqueId="199e917" isInstrument="0" fileTime="18bad8d4dfc" infoUpdateTime="18bad8e7c43"
             numInputs="2" numOutputs="2" isShell="0" hasARAExtension="0"
             uid="e95a3221"/>
-    <STATE>628.VMjLgrl....O+fWarAhckI2bo8la8HRLt.iHfTlai8FYo41Y8HRUTYTK3HxO9.BOVMEUy.Ea0cVZtMEcgQWY9vSRC8Vav8lak4Fc9LCN23RPUcTVugiQTcVRWg0bUYzXqkzQt3BQ1EDTEoFUAACQtDDRPokZAAkKNQkKR81XFo0PUczXlgkZhsVQG4RLEYTXvTkQtDjZtDjKt3hKt3hKnM0PD4BTEoFUAACQtDDRPokZAAkKOQkKR81XFo0PUczXlwTQgUWPWkkKXcEVxU0UY4BQPIDQt3hKt3hKt3hKq7jKtTETRUDUS4BQl4xaQYjKAoGTAwDNwL1PUczXlgkZhsVQG4RLEYTXvTkQtDjZtDjKt3hKt3hKtnmKD4BTEoFUAACQtDDRPokZAAkKNQkKSU2Xx.ELQcDRScWLgYWUF4RLEYTXvTkQtDjZtDjKt3hKt3hKt3hKt3BTEoFUAACQtDDRPokZAAkKKQkKTsVQwnkYXolXqUzQtDSQFEFLUYjKAolKA4hKt3hKtX2bxHDQt.UQpQUPvPjKAgDTZoVPP4xRT4BUqUTLZYlXTg0azXjKwTjQgASUF4RPp4RPt3hKt3hKt3BStvjKPUjZTEDLD4RPHAkVpEDTt3DUtP0ZEEiVlQTUic1cVokdqcjKwTjQgASUF4RPp4RPt3hKt3hKt3hcqLjKt3hKt3hKt3hKtXlTU0DUQAURWoULEYzXqEEUXoWQF4RPDYFTzDzUXkWSG4RPDYmKtnWPt3hKt3hKt3hKJUELPUTPqI1aYcEV5UkQQcVTWgEOujzPu0Fbu4VYtQmO77hUSQ0LPwVcmklaSQWXzUlO..</STATE>
+    <STATE>628.VMjLgrl....O+fWarAhckI2bo8la8HRLt.iHfTlai8FYo41Y8HRUTYTK3HxO9.BOVMEUy.Ea0cVZtMEcgQWY9vSRC8Vav8lak4Fc9LCN23RPUcTVugiQTcVRWg0bUYzXqkzQt3BQ1EDTEoFUAACQtDDRPokZAAkKNQkKR81XFo0PUczXlgkZhsVQG4RLEYTXvTkQtDjZtDjKt3hKt3hKnM0PD4BTEoFUAACQtDDRPokZAAkKOQkKR81XFo0PUczXlwTQgUWPWkkKXcEVxU0UY4BQPIDQt3hKt3hKt3hKt3hKtTETRUDUS4BQl4xaQYjKAoGTAwDNwL1PUczXlgkZhsVQG4RLEYTXvTkQtDjZtDjKt3hKt3hKtnmKD4BTEoFUAACQtDDRPokZAAkKNQkKSU2Xx.ELQcDRScWLgYWUF4RLEYTXvTkQtDjZtDjKt3hKt3hKt3hKt3BTEoFUAACQtDDRPokZAAkKKQkKTsVQwnkYXolXqUzQtDSQFEFLUYjKAolKA4hKt3hKt3hXGIDQt.UQpQUPvPjKAgDTZoVPP4xRT4BUqUTLZYlXTg0azXjKwTjQgASUF4RPp4RPt3hKt3hKt3hKt3hKPUjZTEDLD4RPHAkVpEDTt3DUtP0ZEEiVlQTUic1cVokdqcjKwTjQgASUF4RPp4RPt3hKt3hKt3hcqLjKt3hKt3hKt3hKtXlTU0DUQAURWoULEYzXqEEUXoWQF4RPDYFTzDzUXkWSG4RPDYmKtnWPt3hKt3hKt3hKJUELPUTPqI1aYcEV5UkQQcVTWgEOujzPu0Fbu4VYtQmO77hUSQ0LPwVcmklaSQWXzUlO..</STATE>
     <LAYOUT>
       <INPUTS>
         <BUS index="0" layout="L R"/>
@@ -93,8 +93,8 @@
       </OUTPUTS>
     </LAYOUT>
   </FILTER>
-  <CONNECTION srcFilter="6" srcChannel="0" dstFilter="7" dstChannel="0"/>
-  <CONNECTION srcFilter="6" srcChannel="1" dstFilter="7" dstChannel="1"/>
-  <CONNECTION srcFilter="7" srcChannel="0" dstFilter="3" dstChannel="0"/>
-  <CONNECTION srcFilter="7" srcChannel="1" dstFilter="3" dstChannel="1"/>
+  <CONNECTION srcFilter="6" srcChannel="0" dstFilter="8" dstChannel="0"/>
+  <CONNECTION srcFilter="6" srcChannel="1" dstFilter="8" dstChannel="1"/>
+  <CONNECTION srcFilter="8" srcChannel="0" dstFilter="3" dstChannel="0"/>
+  <CONNECTION srcFilter="8" srcChannel="1" dstFilter="3" dstChannel="1"/>
 </FILTERGRAPH>

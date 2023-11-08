@@ -14,6 +14,7 @@
 #include "PluginProcessor.h"
 #include "Buttons/GateButton.h"
 #include "Buttons/RepeatButton.h"
+#include "Buttons/FreqEffectButton.h"
 
 //==============================================================================
 /*
@@ -36,6 +37,7 @@ public:
     // TODO: Init trigger buttons
     RepeatButton re8, re12, re16, re32;
     GateButton ga8, ga16, ga24, ga32;
+    FreqEffectButton fl1, ph1, bc1, tp1;
 
 private:
     std::vector<juce::Component*> getComponent();

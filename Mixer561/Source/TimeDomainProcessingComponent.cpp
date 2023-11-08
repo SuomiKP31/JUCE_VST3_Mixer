@@ -81,6 +81,13 @@ void TimeDomainProcessingComponent::resized()
 	{
 		gbtn[i]->setBounds(gateBound.removeFromTop(gateH));
 	}
+	auto flanBound = bound.removeFromLeft(buttonW);
+	auto flanH = flanBound.getHeight() * 0.25;
+
+	fl1.setBounds(flanBound.removeFromTop(flanH));
+	ph1.setBounds(flanBound.removeFromTop(flanH));
+	bc1.setBounds(flanBound.removeFromTop(flanH));
+	tp1.setBounds(flanBound.removeFromTop(flanH));
 }
 
 
@@ -91,6 +98,7 @@ std::vector<juce::Component*> TimeDomainProcessingComponent::getComponent()
         &bpmInput.labelComp,
 		& re8,& re12,& re16,& re32,
 		& ga8,& ga16,& ga24,& ga32,
+		& fl1,& bc1,& ph1,& tp1 
     };
 }
 
@@ -105,6 +113,11 @@ void TimeDomainProcessingComponent::setShortcuts()
 	ga16.addShortcut(juce::KeyPress('s', juce::ModifierKeys::shiftModifier, 0));
 	ga24.addShortcut(juce::KeyPress('d', juce::ModifierKeys::shiftModifier, 0));
 	ga32.addShortcut(juce::KeyPress('f', juce::ModifierKeys::shiftModifier, 0));
+
+	fl1.addShortcut(juce::KeyPress('z', juce::ModifierKeys::shiftModifier, 0));
+	ph1.addShortcut(juce::KeyPress('x', juce::ModifierKeys::shiftModifier, 0));
+	bc1.addShortcut(juce::KeyPress('c', juce::ModifierKeys::shiftModifier, 0));
+	tp1.addShortcut(juce::KeyPress('v', juce::ModifierKeys::shiftModifier, 0));
 }
 
 void TimeDomainProcessingComponent::initButtons()
@@ -140,4 +153,21 @@ void TimeDomainProcessingComponent::initButtons()
 		btn->gateProcessor = &audioProcessor.gateProcessor;
 		btn->bpmInput = &bpmInput;
 	}
+
+	//=== FREQ *4 ===
+	fl1.onStateChange = [btn = &fl1] {btn->OnStateChanged();  };
+	fl1.setButtonText("Flanger");
+	fl1.processor = &audioProcessor.flangerProcessor;
+
+	ph1.onStateChange = [btn = &ph1] {btn->OnStateChanged(); };
+	ph1.setButtonText("Phaser");
+	ph1.processor = &audioProcessor.phaserProcessor;
+
+	bc1.onStateChange = [btn = &bc1] {btn->OnStateChanged();  };
+	bc1.setButtonText("BitCrusher");
+	bc1.processor = &audioProcessor.bitcrusherProcessor;
+
+	tp1.onStateChange = [btn = &tp1] {btn->OnStateChanged();  };
+	tp1.setButtonText("TapeStop");
+	tp1.processor = &audioProcessor.tapestopProcessor;
 }

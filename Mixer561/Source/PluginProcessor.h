@@ -11,6 +11,10 @@
 #include <JuceHeader.h>
 #include "DSP/Repeat/RepeatProcessor.h"
 #include "DSP/Gate/GateProcessor.h"
+#include "DSP/BitCrusher/BitCrusherProcessor.h"
+#include "DSP/Flanger/FlangerProcessor.h"
+#include "DSP/Phaser/PhaserProcessor.h"
+#include "DSP/TapeStop/TapeStopProcessor.h"
 
 enum Slope_Choice
 {
@@ -151,6 +155,10 @@ public:
     //==============================================================================
     RepeatProcessor repeatProcessor;
     GateProcessor gateProcessor;
+    FlangerProcessor flangerProcessor;
+    PhaserProcessor phaserProcessor;
+    BitCrusherProcessor bitcrusherProcessor;
+    TapeStopProcessor tapestopProcessor;
 
 private:
     //==============================================================================
