@@ -160,6 +160,10 @@ public:
     BitCrusherProcessor bitcrusherProcessor;
     TapeStopProcessor tapestopProcessor;
 
+    juce::MixerAudioSource mixer;
+    juce::AudioTransportSource slamSource[4];
+
+
 private:
     //==============================================================================
     MonoChain leftChain, rightChain;
@@ -167,6 +171,8 @@ private:
     void UpdateFilters();
     void UpdateLowCutFilters(ChainSettings& chain_settings);
     void UpdateHighCutFilters(ChainSettings& chain_settings);
+
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Mixer561AudioProcessor)
 };
