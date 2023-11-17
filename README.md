@@ -96,3 +96,23 @@ Once GA_x is enabled, the program starts a noise gate that is moving linearly up
 
 This will greatly emphasize the perception of certain notes on the beats, because audio samples in between will be weaker compared to the on-beat ones. Therefore it's especially good for Trances, where the rhythm of the song is mostly unaltered throughout.
 
+## Update Nov 20, 2023
+I've implemented a few more interesting effects for show here. Below is a brief explanation of how they work.
+
+### Phaser
+
+Phaser and Flager are two popular effects utilizing an LFO (Low Frequency Oscillator). They are commonly used frequency domain manipulations. You might see them in physical form(pedals) on some electrical instruments.
+
+An LFO is basically just a sine function that has a low frequency, typically 1-10 Hz.
+
+For phaser, it creates a few IIR filters that has oscillating frequencies, according to our LFO. IIR filters have many notations, JUCE uses the [biquad](https://en.wikipedia.org/wiki/Digital_biquad_filter) notation.
+Here, the filter (chain) we use is a band-cut filter, which is equivalent of a oscillating peak filter with a negative amplitude. Try setup the peak filter this way and hear the similarity between the two.
+
+Of course, you can set the phaser to act on any type of filter that has a frequency parameter. All those effects are generally called pahser and here we're just demonstrating one of them.
+
+### Flanger
+
+Flanger is a more inspriation-struck idea of utilizing LFOs. The algorithm behind it does a very weird thing - feeding a delayed sample of the original audio with an oscillating delay.
+This sounds very counter-intuitive, but it somehow produces a very sci-fi tone to the audio.
+
+These two are the hard ones to understand, so if you are confused, watch this great [visualization video](https://www.youtube.com/watch?v=Ici_YOVDl_0).
