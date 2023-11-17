@@ -10,6 +10,10 @@
       <FILE id="jfm4rx" name="slam.wav" compile="0" resource="1" file="Resources/slam.wav"/>
     </GROUP>
     <GROUP id="{0B866254-E1C8-F52A-B065-4062BC9913D9}" name="Source">
+      <FILE id="h8aOA2" name="LaunchpadComponent.cpp" compile="1" resource="0"
+            file="Source/LaunchpadComponent.cpp"/>
+      <FILE id="dy8xpj" name="LaunchpadComponent.h" compile="0" resource="0"
+            file="Source/LaunchpadComponent.h"/>
       <FILE id="RRFj5a" name="BaseGUIComp.cpp" compile="1" resource="0" file="Source/BaseGUIComp.cpp"/>
       <FILE id="bupHHc" name="BaseGUIComp.h" compile="0" resource="0" file="Source/BaseGUIComp.h"/>
       <GROUP id="{1EEE833E-B99D-A455-51E0-C021729035ED}" name="Buttons">

@@ -11,6 +11,7 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 #include "TimeDomainProcessingComponent.h"
+#include "LaunchpadComponent.h"
 
 //==============================================================================
 /**
@@ -157,6 +158,7 @@ private:
 
     ResponseCurveComponent responseCurveComponent;
     TimeDomainProcessingComponent timeDomainComponent;
+    LaunchpadComponent launchpadComponent;
 
     using APVTS = juce::AudioProcessorValueTreeState;
     using Attachment = APVTS::SliderAttachment;

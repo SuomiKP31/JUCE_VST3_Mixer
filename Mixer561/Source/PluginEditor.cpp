@@ -400,6 +400,7 @@ Mixer561AudioProcessorEditor::Mixer561AudioProcessorEditor(Mixer561AudioProcesso
     highCutSlopeSlider(*audioProcessor.apvts.getParameter("HighCut Slope"), "db/Oct"),
     responseCurveComponent(p),
     timeDomainComponent(p),
+    launchpadComponent(p),
     peakFreqAttachment(audioProcessor.apvts, "Peak Freq", peakFreqSlider),
     peakGainAttachment(audioProcessor.apvts, "Peak Gain", peakGainSlider),
     peakQualityAttachment(audioProcessor.apvts, "Peak Quality", peakQualitySlider),
@@ -439,7 +440,7 @@ Mixer561AudioProcessorEditor::Mixer561AudioProcessorEditor(Mixer561AudioProcesso
     }
 
 
-    setSize(800, 960);
+    setSize(1000, 960);
 
 }
 
@@ -480,10 +481,15 @@ void Mixer561AudioProcessorEditor::resized()
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
     auto bound = getLocalBounds();
-    auto timeDomainArea = bound.removeFromBottom(bound.getHeight() * 0.33);
     auto responseArea = bound.removeFromTop(bound.getHeight() * 0.25);
+    auto launchpadArea = bound.removeFromRight(bound.getWidth() * 0.20);
+    auto timeDomainArea = bound.removeFromBottom(bound.getHeight() * 0.33);
+    
+
     responseCurveComponent.setBounds(responseArea);
     timeDomainComponent.setBounds(timeDomainArea);
+    launchpadComponent.setBounds(launchpadArea);
+   
 
     knobLabelBound = bound.removeFromTop(bound.getHeight() * 0.1);
 
@@ -524,7 +530,8 @@ std::vector<juce::Component*> Mixer561AudioProcessorEditor::GetComps()
         &lowCutSlopeSlider,
         &highCutSlopeSlider,
         &responseCurveComponent,
-        &timeDomainComponent
+        &timeDomainComponent,
+        &launchpadComponent
     };
 }
 
