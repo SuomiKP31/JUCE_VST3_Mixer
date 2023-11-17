@@ -12,7 +12,7 @@ We will use JUCE Framework for this project, as it provides a ready-to-use GUI l
 ## Bi-weekly deliverables
 
 For the first two weeks, there's mainly the GUI framework.
-After that, I implement a new effector for each update and explain how it works, and where it can come handy. (You might find some familiar voicelines actually processed by those effectors!) 
+After that, I implement a new effect for each update and explain how it works, and where it can come handy. (You might find some familiar voicelines actually processed by those effectors!) 
 
 ## Reference
 
@@ -101,18 +101,36 @@ I've implemented a few more interesting effects for show here. Below is a brief 
 
 ### Phaser
 
-Phaser and Flager are two popular effects utilizing an LFO (Low Frequency Oscillator). They are commonly used frequency domain manipulations. You might see them in physical form(pedals) on some electrical instruments.
+Phaser and Flager are two popular effects utilizing an LFO (Low Frequency Oscillator). They are commonly used frequency domain manipulations. You might even see them in physical form(pedals) on some electrical instruments.
 
 An LFO is basically just a sine function that has a low frequency, typically 1-10 Hz.
 
-For phaser, it creates a few IIR filters that has oscillating frequencies, according to our LFO. IIR filters have many notations, JUCE uses the [biquad](https://en.wikipedia.org/wiki/Digital_biquad_filter) notation.
-Here, the filter (chain) we use is a band-cut filter, which is equivalent of a oscillating peak filter with a negative amplitude. Try setup the peak filter this way and hear the similarity between the two.
+For phaser, it creates a few IIR filters that has oscillating frequencies, according to our LFO. IIR filters have many notations, JUCE uses the [biquad](https://en.wikipedia.org/wiki/Digital_biquad_filter) notation. This is also the filter we used for the knobs.
+Here, the filter (chain) we use is a band-cut filter, which is equivalent of a oscillating peak filter with a negative amplitude (i.e. removing certain frequency bands from the signal). Try setup the peak filter this way, turn the knob periodically, and hear if it's similar to the phaser effect.
 
-Of course, you can set the phaser to act on any type of filter that has a frequency parameter. All those effects are generally called pahser and here we're just demonstrating one of them.
+Of course, you can set the phaser to act on any type of filter that has a frequency parameter. All those effects are generally called phaser and here we're just demonstrating one of them.
 
 ### Flanger
 
 Flanger is a more inspriation-struck idea of utilizing LFOs. The algorithm behind it does a very weird thing - feeding a delayed sample of the original audio with an oscillating delay.
 This sounds very counter-intuitive, but it somehow produces a very sci-fi tone to the audio.
 
+Aside from creating frequency sweep hearings, flanger is also commonly used in voice acting. One famous example is 343 Guilty Spark in the Halo series. He has all his voice clips flanged, [hear here](https://www.youtube.com/watch?v=JpGu4xeDeKQ).
+
 These two are the hard ones to understand, so if you are confused, watch this great [visualization video](https://www.youtube.com/watch?v=Ici_YOVDl_0).
+
+### Bit Crusher
+
+At this point of the class, you probably know that all digital audios are quantized, and stored in floating point numbers. In the process of quantization, we create quantization noise due to bit-depth limit.
+In older days, the bit depth digital audio can achieve is low, usually 8bit or 16bit, as the result, they sounds lossy. Nowadays, a genre called chiptone creates 8-bit like audio to get some retro-vibe.
+
+One of the tools they use is the Bit Crusher effect. It's the most basic way of deliberately introducing quantization noise. What this effect do is just take each sample, and map them to fewer bands (corresponding to a given bit depth) to simulate the quantization process.
+You will need far more than this to create audible chiptone, but this one will suffice in creating a few glitchy effects.
+
+In Nier:Automata, Platinium Studio creates a [Tone Filter that works alongside a bitcrusher](https://www.youtube.com/watch?v=pBD8zo-M9rs) to generate real-time chiptone variants of their music.
+
+### Tape Stop
+
+In old school days of DJs, they scratch the tape to create this effect. Now though... All audio are digitized and we don't have a tape to scratch, what do we do?
+Well, the answer is we simulate the momentum of the tape! Once the effect is applied, the effect will sample slower and slower, until reaching a total mute. 
+Note that we are not actually modifying the sample rate (output sample rate is usually constant), we are just feeding duplicated samples to simulate a slower and slower tape.
