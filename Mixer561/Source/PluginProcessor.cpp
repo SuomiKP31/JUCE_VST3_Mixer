@@ -19,13 +19,16 @@ Mixer561AudioProcessor::Mixer561AudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       ),readAheadThread("READ AHEAD THREAD")
 #endif
 {
+    readAheadThread.startThread(juce::Thread::Priority::highest);
 }
 
 Mixer561AudioProcessor::~Mixer561AudioProcessor()
 {
+    inputStream.release();
+    slamAudioSource.release();
 }
 
 //==============================================================================
@@ -110,12 +113,26 @@ void Mixer561AudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
     tapestopProcessor.setupTapeBuffer(getTotalNumInputChannels(), getSampleRate());
 
     UpdateFilters();
+
+    // Init audio sources here
+    juce::WavAudioFormat wavFormat;
+    // inputStream = new juce::MemoryInputStream(BinaryData::slam_wav, BinaryData::slam_wavSize, false);
+    inputStream = std::make_unique<juce::MemoryInputStream>(BinaryData::slam_wav, BinaryData::slam_wavSize, false);
+    reader = wavFormat.createReaderFor(inputStream.get(), false);
+    //slamAudioSource = new juce::AudioFormatReaderSource(reader, false);
+    slamAudioSource = std::make_unique<juce::AudioFormatReaderSource>(reader, true);
+
+
+    slamSource.setSource(slamAudioSource.get(), 32768, &readAheadThread, getSampleRate());
+    slamSource.prepareToPlay(samplesPerBlock, sampleRate);
+    mixer.addInputSource(&slamSource, false);
 }
 
 void Mixer561AudioProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
     // spare memory, etc.
+    
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -287,6 +304,11 @@ juce::AudioProcessorValueTreeState::ParameterLayout Mixer561AudioProcessor::crea
     layout.add(std::make_unique<juce::AudioParameterChoice>("HighCut Slope", "HighCut(LP) Slope", string_array, 0));
 
     return layout;
+}
+
+void Mixer561AudioProcessor::PlayNextSlam()
+{
+    slamSource.start();
 }
 
 void Mixer561AudioProcessor::UpdatePeakFilter(const ChainSettings& chain_settings)

@@ -7,11 +7,16 @@
   <MAINGROUP id="w8m4hb" name="Mixer561">
     <GROUP id="{23A40B0D-2477-FDC2-3203-D677FF3C5184}" name="Resources">
       <FILE id="K4gmsj" name="561Mixer.png" compile="0" resource="1" file="Resources/561Mixer.png"/>
+      <FILE id="jfm4rx" name="slam.wav" compile="0" resource="1" file="Resources/slam.wav"/>
     </GROUP>
     <GROUP id="{0B866254-E1C8-F52A-B065-4062BC9913D9}" name="Source">
       <FILE id="RRFj5a" name="BaseGUIComp.cpp" compile="1" resource="0" file="Source/BaseGUIComp.cpp"/>
       <FILE id="bupHHc" name="BaseGUIComp.h" compile="0" resource="0" file="Source/BaseGUIComp.h"/>
       <GROUP id="{1EEE833E-B99D-A455-51E0-C021729035ED}" name="Buttons">
+        <FILE id="Vf6o5H" name="FilterLaunchButton.cpp" compile="1" resource="0"
+              file="Source/Buttons/FilterLaunchButton.cpp"/>
+        <FILE id="gkq2Vr" name="FilterLaunchButton.h" compile="0" resource="0"
+              file="Source/Buttons/FilterLaunchButton.h"/>
         <FILE id="BHyLrs" name="FreqEffectButton.cpp" compile="1" resource="0"
               file="Source/Buttons/FreqEffectButton.cpp"/>
         <FILE id="koqtvv" name="FreqEffectButton.h" compile="0" resource="0"

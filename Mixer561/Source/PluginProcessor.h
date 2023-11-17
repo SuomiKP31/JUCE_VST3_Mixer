@@ -159,9 +159,17 @@ public:
     PhaserProcessor phaserProcessor;
     BitCrusherProcessor bitcrusherProcessor;
     TapeStopProcessor tapestopProcessor;
-
+    //==============================================================================
+    juce::TimeSliceThread readAheadThread;
     juce::MixerAudioSource mixer;
-    juce::AudioTransportSource slamSource[4];
+    juce::AudioTransportSource slamSource;
+    void PlayNextSlam();
+    // Audio reader & audio source
+    juce::AudioFormatReader* reader;
+
+    std::unique_ptr<juce::MemoryInputStream> inputStream;
+    
+    std::unique_ptr<juce::AudioFormatReaderSource> slamAudioSource;
 
 
 private:
