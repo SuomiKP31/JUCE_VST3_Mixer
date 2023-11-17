@@ -56,6 +56,13 @@ void TimeDomainProcessingComponent::resized()
     // This method is where you should set the bounds of any child
     // components that your component contains..
     auto bound = getLocalBounds();
+	auto hb = 0.01 * bound.getHeight();
+	auto wb = 0.01 * bound.getWidth();
+	bound.removeFromTop(hb);
+	bound.removeFromBottom(hb);
+	bound.removeFromLeft(wb);
+	bound.removeFromRight(wb);
+
 	auto bpmBound = bound.removeFromLeft(bound.getWidth() * 0.33);
 	bpmInput.label = "BPM";
     bpmInput.labelComp.setBounds(bpmBound.removeFromTop(bpmBound.getHeight() * 0.33));
