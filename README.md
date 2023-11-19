@@ -1,5 +1,6 @@
 # JUCE_VST3_Mixer
-Project for UVic CSC561 (Ongoing)
+Project for UVic CSC561
+
 This project aims to program a toy project using JUCE Framework.
 Ideally it should be able to apply some audio effects in real time, do filtering and play some launchpad samples.
 
@@ -21,7 +22,7 @@ After that, I implement a new effect for each update and explain how it works, a
 
 ## Setup Guide
 
-To play with the vst plugin, you can download the release package(TODO) or compile using Visual Studio 2022 by yourself.
+To play with the vst plugin, you can download the [release package](https://github.com/SuomiKP31/JUCE_VST3_Mixer/releases) or compile using Visual Studio 2022 by yourself.
 There will be one simple audio player plugin and JUCE plugin host available in the package.
 
 ### The plugin host
