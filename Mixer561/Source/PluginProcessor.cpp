@@ -23,6 +23,12 @@ Mixer561AudioProcessor::Mixer561AudioProcessor()
 #endif
 {
     readAheadThread.startThread(juce::Thread::Priority::highest);
+    // Init audio sources here
+    juce::WavAudioFormat wavFormat;
+    inputStream = std::make_unique<juce::MemoryInputStream>(BinaryData::slam_wav, BinaryData::slam_wavSize, false);
+    reader = wavFormat.createReaderFor(inputStream.get(), false);
+    slamAudioSource = std::make_unique<juce::AudioFormatReaderSource>(reader, true);
+
 }
 
 Mixer561AudioProcessor::~Mixer561AudioProcessor()
@@ -114,18 +120,14 @@ void Mixer561AudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
 
     UpdateFilters();
 
-    // Init audio sources here
-    juce::WavAudioFormat wavFormat;
-    // inputStream = new juce::MemoryInputStream(BinaryData::slam_wav, BinaryData::slam_wavSize, false);
-    inputStream = std::make_unique<juce::MemoryInputStream>(BinaryData::slam_wav, BinaryData::slam_wavSize, false);
-    reader = wavFormat.createReaderFor(inputStream.get(), false);
-    //slamAudioSource = new juce::AudioFormatReaderSource(reader, false);
-    slamAudioSource = std::make_unique<juce::AudioFormatReaderSource>(reader, true);
-
+   
 
     slamSource.setSource(slamAudioSource.get(), 32768, &readAheadThread, getSampleRate());
     slamSource.prepareToPlay(samplesPerBlock, sampleRate);
+    slamSource.setGain(0.8);
     mixer.addInputSource(&slamSource, false);
+    mixer.prepareToPlay(samplesPerBlock, sampleRate);
+    
 }
 
 void Mixer561AudioProcessor::releaseResources()
@@ -193,6 +195,7 @@ void Mixer561AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
 
 
     auto sampleRate = getSampleRate();
+    auto bufferSampleCount = buffer.getNumSamples();
 
     // Effectors run first
     repeatProcessor.process(buffer, sampleRate);
@@ -206,6 +209,14 @@ void Mixer561AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
     leftChain.process(left_context);
     rightChain.process(right_context);
 
+    // Mix with launchpad sources
+    juce::AudioSampleBuffer mixbuffer(2, bufferSampleCount);
+    juce::AudioSourceChannelInfo mixInfo(mixbuffer);
+    mixer.getNextAudioBlock(mixInfo);
+
+    buffer.addFrom(0, 0, *mixInfo.buffer, 0, 0, bufferSampleCount, 1.0);
+    buffer.addFrom(1, 0, *mixInfo.buffer, 1, 0, bufferSampleCount, 1.0);
+    
 }
 
 //==============================================================================
@@ -308,6 +319,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout Mixer561AudioProcessor::crea
 
 void Mixer561AudioProcessor::PlayNextSlam()
 {
+    slamSource.stop();
+    slamSource.setPosition(0);
     slamSource.start();
 }
 

@@ -12,11 +12,27 @@
 
 void FilterLaunchButton::TakeAction(TriggerAction& action)
 {
-    // Send action bind to this button to component, and let it interact with processor.
+	switch (action)
+	{
+		case Activate: {
+			ApplySlam();
+			break;
+		}
+		case Deactivate: {
+			break;
+		}
+		case None: break;
+		default: break;
+	}
 }
 
 void FilterLaunchButton::DefineAction(GUISlamControl::SlamActionType actionType, GUISlamControl::SlamControlType controlType)
 {
     action = actionType;
     control = controlType;
+}
+
+void FilterLaunchButton::ApplySlam()
+{
+	audioProcessor->PlayNextSlam();
 }

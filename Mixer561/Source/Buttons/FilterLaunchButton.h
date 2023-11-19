@@ -35,6 +35,7 @@ class FilterLaunchButton : public TriggerButton {
 public:
     virtual void TakeAction(TriggerAction& action) override;
     virtual void DefineAction(GUISlamControl::SlamActionType actionType, GUISlamControl::SlamControlType controlType);
+    virtual void ApplySlam();
     Mixer561AudioProcessor* audioProcessor;
 
 private:

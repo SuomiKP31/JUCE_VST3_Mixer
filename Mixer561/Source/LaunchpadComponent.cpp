@@ -93,12 +93,15 @@ void LaunchpadComponent::initButtons()
 
     std::vector tbtn {&ResetAll, & PeakAdd, & PeakReset, & PeakSubstract, & LPFAdd, & LPFReset, & LPFSubtract, & HPFAdd, & HPFReset, & HPFSubtract};
     std::vector btnText {"R", ">>", "Peak-R", "<<", ">>", "LPF-R", "<<", ">>", "HPF-R", "<<"};
+    std::vector btnAction {GUISlamControl::Reset, GUISlamControl::Add, GUISlamControl::Reset, GUISlamControl::Substract, GUISlamControl::Add, GUISlamControl::Reset, GUISlamControl::Substract, GUISlamControl::Add, GUISlamControl::Reset, GUISlamControl::Substract};
+    std::vector btnControl {GUISlamControl::All, GUISlamControl::Peak, GUISlamControl::Peak, GUISlamControl::Peak, GUISlamControl::LPF, GUISlamControl::LPF, GUISlamControl::LPF, GUISlamControl::HPF, GUISlamControl::HPF, GUISlamControl::HPF};
 
 
     for (int i = 0; i < tbtn.size(); i++) {
         auto& btn = tbtn[i];
         btn->audioProcessor = &audioProcessor;
         btn->setButtonText(btnText[i]);
+        btn->DefineAction(btnAction[i], btnControl[i]);
         btn->onStateChange = [btn] {btn->OnStateChanged(); };
     }
 }
