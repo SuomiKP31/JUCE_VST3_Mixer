@@ -59,7 +59,7 @@ void LaunchpadComponent::resized()
     labelBound = bound.removeFromTop(labelHeight);
     Llabel.setBounds(labelBound);
 
-    std::vector tbtn {&LPFAdd, & LPFReset, & LPFSubtract};
+    std::vector tbtn {&LPFSubtract, & LPFReset, & LPFAdd };
     auto LPFBound = bound.removeFromTop(buttonHeight * 3.1);
     for (int i = 0; i < 3; i++) {
         tbtn[i]->setBounds(LPFBound.removeFromTop(buttonHeight));
