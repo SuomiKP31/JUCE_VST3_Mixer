@@ -144,3 +144,5 @@ A launchpad effect was added.
 Copyright Notice: The sound effect was taken from the rhythm game Sound Voltex. Do not redistribute this software before removing it.
 The buttons slam the frequency band, making a cool sound and move your frequency knob to alternate hearing immediately.
 Believe it or not, this is actually quite a headache to make, as you don't usually mix sounds in plugins. The SFX was loaded in binary and preloaded by a read-ahead thread.
+
+![image](https://github.com/SuomiKP31/JUCE_VST3_Mixer/assets/50021290/865b2f2b-193b-4a75-b8ed-163a05542674)
