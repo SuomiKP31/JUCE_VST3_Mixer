@@ -186,6 +186,8 @@ void ResponseCurveComponent::timerCallback()
 
 void ResponseCurveComponent::UpdateGuiChain()
 {
+    // Note: This chain will not actually participate in audio processing. It's for the frequency curve.
+    // So we are just syncing the chains with the one we have in audioProcessor here.
     auto sampleRate = audioProcessor.getSampleRate();
 
     auto chainSettings = getChainSettings(audioProcessor.apvts);

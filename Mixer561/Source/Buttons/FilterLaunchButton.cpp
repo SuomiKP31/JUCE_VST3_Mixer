@@ -12,9 +12,11 @@
 
 void FilterLaunchButton::TakeAction(TriggerAction& action)
 {
-    
+    // Send action bind to this button to component, and let it interact with processor.
 }
 
-void FilterLaunchButton::PlaySlam()
+void FilterLaunchButton::DefineAction(GUISlamControl::SlamActionType actionType, GUISlamControl::SlamControlType controlType)
 {
+    action = actionType;
+    control = controlType;
 }
