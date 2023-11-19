@@ -38,6 +38,15 @@ struct ChainSettings
     int lowCutSlope{ 0 }, highCutSlope{ 0 };
 };
 
+struct SlamFreqConst {
+    static const float hpfBands[4];
+    static const float lpfBands[4];
+    static const float peakBands[4];
+    static const float peakDefaultQuality;
+    static const float peakDefaultGain;
+    static const int bandNum;
+};
+
 // ==== Aliases ====
 using Filter = juce::dsp::IIR::Filter<float>;
 using CutFilter = juce::dsp::ProcessorChain<Filter, Filter, Filter, Filter>; // Make cut filter with 4 IIRs
@@ -164,11 +173,10 @@ public:
     juce::MixerAudioSource mixer;
     juce::AudioTransportSource slamSource;
     void PlayNextSlam();
+    bool ProcessSlam(int action, int control);
     // Audio reader & audio source
     juce::AudioFormatReader* reader;
-
     std::unique_ptr<juce::MemoryInputStream> inputStream;
-    
     std::unique_ptr<juce::AudioFormatReaderSource> slamAudioSource;
 
 
@@ -179,6 +187,9 @@ private:
     void UpdateFilters();
     void UpdateLowCutFilters(ChainSettings& chain_settings);
     void UpdateHighCutFilters(ChainSettings& chain_settings);
+    int lpfIndex, hpfIndex, peakIndex; // Slam control index, 4 bands each
+
+    void ResetFilters(); // Called in each ProcessSlam(). If the wanted filter band is movable, we reset all other filters and move the desired one.
 
 
     //==============================================================================

@@ -38,6 +38,8 @@ void LaunchpadComponent::resized()
     auto bound = getLocalBounds();
     bound.removeFromLeft(1);
     bound.removeFromRight(1);
+    bound.removeFromBottom(1);
+    bound.removeFromTop(1);
 
     auto labelHeight = 0.03 * bound.getHeight(); // 3 labels = 0.09
     auto buttonHeight = 0.09 * bound.getHeight(); // 10 Buttons = 0.9

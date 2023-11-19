@@ -33,7 +33,7 @@ void TriggerButton::OnStateChanged()
 
 TriggerButton::TriggerAction TriggerButton::JudgeButtonAction(ButtonState currentState)
 {
-	// DBG(juce::String::formatted("cache %d state %d", cachedState, currentState));
+	//DBG(juce::String::formatted("cache %d state %d", cachedState, currentState));
 	if (cachedState == buttonNormal)
 	{
 		cachedState = currentState;
@@ -43,6 +43,7 @@ TriggerButton::TriggerAction TriggerButton::JudgeButtonAction(ButtonState curren
 		}
 		if (currentState == buttonDown)
 		{
+			//DBG("Activate");
 			return Activate;
 		}
 		return None;
@@ -56,6 +57,7 @@ TriggerButton::TriggerAction TriggerButton::JudgeButtonAction(ButtonState curren
 		}
 		if (currentState == buttonDown)
 		{
+			//DBG("Activate");
 			return Activate;
 		}
 		return None;
@@ -67,8 +69,9 @@ TriggerButton::TriggerAction TriggerButton::JudgeButtonAction(ButtonState curren
 		{
 			return None;
 		}
-
+		//DBG("Deactivate");
 		return Deactivate;
+		
 	}
 	return None;
 }

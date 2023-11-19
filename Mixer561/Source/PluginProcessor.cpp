@@ -10,6 +10,16 @@
 #include "PluginEditor.h"
 
 //==============================================================================
+
+const float SlamFreqConst::hpfBands[4] = {20.f, 200.f, 500.f, 1000.f};
+const float SlamFreqConst::lpfBands[4] = {20000.f, 10000.f, 2000.f, 1000.f};
+const float SlamFreqConst::peakBands[4] = { 200.f, 500.f, 1000.f, 10000.f };
+const float SlamFreqConst::peakDefaultGain = 1.1f;
+const float SlamFreqConst::peakDefaultQuality = 2.0f;
+const int SlamFreqConst::bandNum = 4;
+
+
+//==============================================================================
 Mixer561AudioProcessor::Mixer561AudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
      : AudioProcessor (BusesProperties()
@@ -26,7 +36,7 @@ Mixer561AudioProcessor::Mixer561AudioProcessor()
     // Init audio sources here
     juce::WavAudioFormat wavFormat;
     inputStream = std::make_unique<juce::MemoryInputStream>(BinaryData::slam_wav, BinaryData::slam_wavSize, false);
-    reader = wavFormat.createReaderFor(inputStream.get(), false);
+    reader = wavFormat.createReaderFor(inputStream.get(), true);
     slamAudioSource = std::make_unique<juce::AudioFormatReaderSource>(reader, true);
 
 }
@@ -324,6 +334,36 @@ void Mixer561AudioProcessor::PlayNextSlam()
     slamSource.start();
 }
 
+bool Mixer561AudioProcessor::ProcessSlam(int action, int control)
+{
+    GUISlamControl::SlamActionType a = GUISlamControl::SlamActionType(action);
+    GUISlamControl::SlamControlType c = GUISlamControl::SlamControlType(control);
+
+    bool actionSuccessful = false;
+
+    
+    switch (c)
+    {
+    case GUISlamControl::LPF:
+        break;
+    case GUISlamControl::Peak:
+        break;
+    case GUISlamControl::HPF:
+        break;
+    case GUISlamControl::All:
+        actionSuccessful = true;
+        ResetFilters();
+        break;
+    default:
+        break;
+    }
+    
+
+    return actionSuccessful;
+}
+
+
+
 void Mixer561AudioProcessor::UpdatePeakFilter(const ChainSettings& chain_settings)
 {
     auto peak_coef = makePeakFilter(chain_settings, getSampleRate());
@@ -360,6 +400,26 @@ void Mixer561AudioProcessor::UpdateHighCutFilters(ChainSettings& chain_settings)
     auto& rightlpf = rightChain.get<HighCut>();
     UpdateCutFilter(leftlpf, cut_hcoef, chain_settings.highCutSlope);
     UpdateCutFilter(rightlpf, cut_hcoef, chain_settings.highCutSlope);
+}
+
+void Mixer561AudioProcessor::ResetFilters()
+{
+    auto lpf = apvts.getParameterAsValue("LowCut Freq");
+    auto hpf = apvts.getParameterAsValue("HighCut Freq");
+    auto peak = apvts.getParameterAsValue("Peak Freq");
+    auto peakG = apvts.getParameterAsValue("Peak Gain");
+    auto peakQ = apvts.getParameterAsValue("Peak Quality");
+
+    
+
+    lpf = 20.0f;
+    hpf = 20000.0f;
+    peak = 750.0f;
+    peakG = 0.0f;
+    peakQ = SlamFreqConst::peakDefaultQuality;
+
+    UpdateFilters();
+    return;
 }
 
 //==============================================================================
