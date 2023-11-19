@@ -134,3 +134,13 @@ In Nier:Automata, Platinium Studio creates a [Tone Filter that works alongside a
 In old school days of DJs, they scratch the tape to create this effect. Now though... All audio are digitized and we don't have a tape to scratch, what do we do?
 Well, the answer is we simulate the momentum of the tape! Once the effect is applied, the effect will sample slower and slower, until reaching a total mute. 
 Note that we are not actually modifying the sample rate (output sample rate is usually constant), we are just feeding duplicated samples to simulate a slower and slower tape.
+
+
+## Final Update
+
+### Frequency Slam
+
+A launchpad effect was added. 
+Copyright Notice: The sound effect was taken from the rhythm game Sound Voltex. Do not redistribute this software before removing it.
+The buttons slam the frequency band, making a cool sound and move your frequency knob to alternate hearing immediately.
+Believe it or not, this is actually quite a headache to make, as you don't usually mix sounds in plugins. The SFX was loaded in binary and preloaded by a read-ahead thread.
