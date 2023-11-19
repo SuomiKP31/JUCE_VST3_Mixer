@@ -11,10 +11,10 @@
 
 //==============================================================================
 
-const float SlamFreqConst::lpfBands[4] = {20000.f, 10000.f, 2000.f, 1000.f };
-const float SlamFreqConst::hpfBands[4] = {20.f, 750.f, 1500.f, 3000.f }; // Confusion Alert: High "Pass" Filter is controlled by Low "Cut" Frequency, vice versa.
-const float SlamFreqConst::peakBands[4] = { 200.f, 500.f, 1000.f, 10000.f };
-const float SlamFreqConst::peakDefaultGain = 10.0f;
+const float SlamFreqConst::lpfBands[4] = {20000.f, 10000.f, 2000.f, 750.f };
+const float SlamFreqConst::hpfBands[4] = {20.f, 800.f, 1500.f, 3000.f }; // Confusion Alert: High "Pass" Filter is controlled by Low "Cut" Frequency, vice versa.
+const float SlamFreqConst::peakBands[4] = { 750.f, 1500.f, 5000.f, 10000.f };
+const float SlamFreqConst::peakDefaultGain = 10.0f; // dB
 const float SlamFreqConst::peakDefaultQuality = 2.0f;
 const int SlamFreqConst::bandNum = 3;
 
