@@ -189,7 +189,11 @@ private:
     void UpdateHighCutFilters(ChainSettings& chain_settings);
     int lpfIndex, hpfIndex, peakIndex; // Slam control index, 4 bands each
 
-    void ResetFilters(); // Called in each ProcessSlam(). If the wanted filter band is movable, we reset all other filters and move the desired one.
+    void ResetFilters(juce::Value &lpf, juce::Value& hpf, juce::Value& peak, juce::Value& peakG, juce::Value& peakQ); // Reset All without play the slam sound
+    bool SlamLPF(int& action, juce::Value& lpf);
+    bool SlamHPF(int& action, juce::Value& hpf);
+    bool SlamPeak(int& action, juce::Value& peak, juce::Value& peakG, juce::Value& peakQ);
+    
 
 
     //==============================================================================

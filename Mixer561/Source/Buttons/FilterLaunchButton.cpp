@@ -35,11 +35,11 @@ void FilterLaunchButton::DefineAction(GUISlamControl::SlamActionType actionType,
 void FilterLaunchButton::ApplySlam()
 {
 	bool playSlam = true;
+	playSlam = audioProcessor->ProcessSlam(action, control);
 	if (control == GUISlamControl::SlamControlType::All)
 	{
 		playSlam = false;
 	}
-	audioProcessor->ProcessSlam(action, control);
 	if (playSlam) {
 		audioProcessor->PlayNextSlam();
 	}

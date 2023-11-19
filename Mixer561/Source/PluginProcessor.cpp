@@ -11,12 +11,12 @@
 
 //==============================================================================
 
-const float SlamFreqConst::hpfBands[4] = {20.f, 200.f, 500.f, 1000.f};
-const float SlamFreqConst::lpfBands[4] = {20000.f, 10000.f, 2000.f, 1000.f};
+const float SlamFreqConst::lpfBands[4] = {20000.f, 10000.f, 2000.f, 1000.f };
+const float SlamFreqConst::hpfBands[4] = {20.f, 200.f, 500.f, 1000.f }; // Confusion Alert: High "Pass" Filter is controlled by Low "Cut" Frequency, vice versa.
 const float SlamFreqConst::peakBands[4] = { 200.f, 500.f, 1000.f, 10000.f };
-const float SlamFreqConst::peakDefaultGain = 1.1f;
+const float SlamFreqConst::peakDefaultGain = 10.0f;
 const float SlamFreqConst::peakDefaultQuality = 2.0f;
-const int SlamFreqConst::bandNum = 4;
+const int SlamFreqConst::bandNum = 3;
 
 
 //==============================================================================
@@ -336,23 +336,38 @@ void Mixer561AudioProcessor::PlayNextSlam()
 
 bool Mixer561AudioProcessor::ProcessSlam(int action, int control)
 {
-    GUISlamControl::SlamActionType a = GUISlamControl::SlamActionType(action);
     GUISlamControl::SlamControlType c = GUISlamControl::SlamControlType(control);
 
     bool actionSuccessful = false;
 
-    
+    auto hpf = apvts.getParameterAsValue("LowCut Freq"); // Confusion Alert: High "Pass" Filter is controlled by Low "Cut" Frequency, vice versa.
+    auto lpf = apvts.getParameterAsValue("HighCut Freq");
+    auto peak = apvts.getParameterAsValue("Peak Freq");
+    auto peakG = apvts.getParameterAsValue("Peak Gain");
+    auto peakQ = apvts.getParameterAsValue("Peak Quality");
+
+    int resetAction = 2;
+
     switch (c)
     {
     case GUISlamControl::LPF:
+        actionSuccessful = SlamLPF(action, lpf);
+        //if (actionSuccessful) {
+        //    SlamHPF(resetAction, hpf); // Reset LPF if HPF slam is successful
+        //}
         break;
     case GUISlamControl::Peak:
+        actionSuccessful = SlamPeak(action, peak, peakG, peakQ);
         break;
     case GUISlamControl::HPF:
+        actionSuccessful = SlamHPF(action, hpf);
+        //if (actionSuccessful) {
+        //    SlamLPF(resetAction, lpf); // Reset LPF if HPF slam is successful
+        //}
         break;
     case GUISlamControl::All:
         actionSuccessful = true;
-        ResetFilters();
+        ResetFilters(lpf, hpf, peak, peakG, peakQ);
         break;
     default:
         break;
@@ -402,23 +417,149 @@ void Mixer561AudioProcessor::UpdateHighCutFilters(ChainSettings& chain_settings)
     UpdateCutFilter(rightlpf, cut_hcoef, chain_settings.highCutSlope);
 }
 
-void Mixer561AudioProcessor::ResetFilters()
+bool Mixer561AudioProcessor::SlamPeak(int& action, juce::Value& peak, juce::Value& peakG, juce::Value& peakQ)
 {
-    auto lpf = apvts.getParameterAsValue("LowCut Freq");
-    auto hpf = apvts.getParameterAsValue("HighCut Freq");
-    auto peak = apvts.getParameterAsValue("Peak Freq");
-    auto peakG = apvts.getParameterAsValue("Peak Gain");
-    auto peakQ = apvts.getParameterAsValue("Peak Quality");
+    GUISlamControl::SlamActionType a = GUISlamControl::SlamActionType(action);
+    switch (a)
+    {
+    case GUISlamControl::Add:
+        if (peakIndex >= SlamFreqConst::bandNum)
+        {
+            // Unable to move
+            break;
+        }
+        else
+        {
+            peakIndex++;
+            peak = SlamFreqConst::peakBands[peakIndex];
+            peakG = SlamFreqConst::peakDefaultGain;
+            peakQ = SlamFreqConst::peakDefaultQuality;
+            return true;
+        }
+        break;
+    case GUISlamControl::Substract:
+        if (peakIndex <= 0) {
+            break;
+        }
+        else
+        {
+            peakIndex--;
+            bool peakClose = peakIndex == 0;
+            peakG = peakClose ? 0.0f : SlamFreqConst::peakDefaultGain;
+            peak = SlamFreqConst::peakBands[peakIndex];
+            return true;
+        }
+        break;
+    case GUISlamControl::Reset:
+        if (peakIndex == 0) {
+            return false; // Already there
+        }
+        peakIndex = 0;
+        peak = SlamFreqConst::peakBands[peakIndex];
+        peakG = 0.0f;
+        peakQ = SlamFreqConst::peakDefaultQuality;
+        return true;
+        break;
+    default:
+        break;
+    }
+    return false;
+}
 
-    
+bool Mixer561AudioProcessor::SlamLPF(int& action, juce::Value& lpf)
+{
+    GUISlamControl::SlamActionType a = GUISlamControl::SlamActionType(action);
+    switch (a)
+    {
+    case GUISlamControl::Add:
+        if (lpfIndex >= SlamFreqConst::bandNum) {
+            break;
+        }
+        else
+        {
+            lpfIndex++;
+            lpf = SlamFreqConst::lpfBands[lpfIndex];
+            return true;
+        }
+        break;
+    case GUISlamControl::Substract:
+        if (lpfIndex <= 0) {
+            break;
+        }
+        else
+        {
+            lpfIndex--;
+            lpf = SlamFreqConst::lpfBands[lpfIndex];
+            return true;
+        }
+        break;
+    case GUISlamControl::Reset:
+        if (lpfIndex == 0) {
+            return false;
+        }
+        lpfIndex = 0;
+        lpf = SlamFreqConst::lpfBands[lpfIndex];
+        return true;
+        break;
+    default:
+        break;
+    }
+    return false;
+}
 
-    lpf = 20.0f;
-    hpf = 20000.0f;
+bool Mixer561AudioProcessor::SlamHPF(int& action, juce::Value& hpf)
+{
+    GUISlamControl::SlamActionType a = GUISlamControl::SlamActionType(action);
+    switch (a)
+    {
+    case GUISlamControl::Add:
+        if (hpfIndex >= SlamFreqConst::bandNum) {
+            break;
+        }
+        else
+        {
+            hpfIndex++;
+            hpf = SlamFreqConst::hpfBands[hpfIndex];
+            return true;
+        }
+        break;
+    case GUISlamControl::Substract:
+        if (hpfIndex <= 0) {
+            break;
+        }
+        else
+        {
+            hpfIndex--;
+            hpf = SlamFreqConst::hpfBands[hpfIndex];
+            return true;
+        }
+        break;
+    case GUISlamControl::Reset:
+        if (hpfIndex == 0) {
+            return false;
+        }
+        hpfIndex = 0;
+        hpf = SlamFreqConst::hpfBands[hpfIndex];
+        return true;
+        break;
+    default:
+        break;
+    }
+    return false;
+}
+
+void Mixer561AudioProcessor::ResetFilters(juce::Value& lpf, juce::Value& hpf, juce::Value& peak, juce::Value& peakG, juce::Value& peakQ)
+{   
+
+    lpf = 20000.0f; // High Cut = 20khz, no cut in audible range
+    hpf = 20.0f;
     peak = 750.0f;
     peakG = 0.0f;
     peakQ = SlamFreqConst::peakDefaultQuality;
 
-    UpdateFilters();
+    peakIndex = 0;
+    hpfIndex = 0;
+    lpfIndex = 0;
     return;
 }
 

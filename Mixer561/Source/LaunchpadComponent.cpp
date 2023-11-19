@@ -95,7 +95,7 @@ void LaunchpadComponent::initButtons()
 
     std::vector tbtn {&ResetAll, & PeakAdd, & PeakReset, & PeakSubstract, & LPFAdd, & LPFReset, & LPFSubtract, & HPFAdd, & HPFReset, & HPFSubtract};
     std::vector btnText {"R", ">>", "Peak-R", "<<", ">>", "LPF-R", "<<", ">>", "HPF-R", "<<"};
-    std::vector btnAction {GUISlamControl::Reset, GUISlamControl::Add, GUISlamControl::Reset, GUISlamControl::Substract, GUISlamControl::Add, GUISlamControl::Reset, GUISlamControl::Substract, GUISlamControl::Add, GUISlamControl::Reset, GUISlamControl::Substract};
+    std::vector btnAction {GUISlamControl::Reset, GUISlamControl::Add, GUISlamControl::Reset, GUISlamControl::Substract, GUISlamControl::Substract, GUISlamControl::Reset, GUISlamControl::Add, GUISlamControl::Add, GUISlamControl::Reset, GUISlamControl::Substract};
     std::vector btnControl {GUISlamControl::All, GUISlamControl::Peak, GUISlamControl::Peak, GUISlamControl::Peak, GUISlamControl::LPF, GUISlamControl::LPF, GUISlamControl::LPF, GUISlamControl::HPF, GUISlamControl::HPF, GUISlamControl::HPF};
 
 
