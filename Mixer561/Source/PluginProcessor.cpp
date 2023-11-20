@@ -11,7 +11,7 @@
 
 //==============================================================================
 
-const float SlamFreqConst::lpfBands[4] = {20000.f, 10000.f, 2000.f, 750.f };
+const float SlamFreqConst::lpfBands[4] = {20000.f, 2000.f, 1000.f, 500.f };
 const float SlamFreqConst::hpfBands[4] = {20.f, 800.f, 1500.f, 3000.f }; // Confusion Alert: High "Pass" Filter is controlled by Low "Cut" Frequency, vice versa.
 const float SlamFreqConst::peakBands[4] = { 750.f, 1500.f, 5000.f, 10000.f };
 const float SlamFreqConst::peakDefaultGain = 10.0f; // dB
@@ -451,9 +451,6 @@ bool Mixer561AudioProcessor::SlamPeak(int& action, juce::Value& peak, juce::Valu
         }
         break;
     case GUISlamControl::Reset:
-        if (peakIndex == 0) {
-            return false; // Already there
-        }
         peakIndex = 0;
         peak = SlamFreqConst::peakBands[peakIndex];
         peakG = 0.0f;
@@ -494,9 +491,6 @@ bool Mixer561AudioProcessor::SlamLPF(int& action, juce::Value& lpf)
         }
         break;
     case GUISlamControl::Reset:
-        if (lpfIndex == 0) {
-            return false;
-        }
         lpfIndex = 0;
         lpf = SlamFreqConst::lpfBands[lpfIndex];
         return true;
@@ -535,9 +529,6 @@ bool Mixer561AudioProcessor::SlamHPF(int& action, juce::Value& hpf)
         }
         break;
     case GUISlamControl::Reset:
-        if (hpfIndex == 0) {
-            return false;
-        }
         hpfIndex = 0;
         hpf = SlamFreqConst::hpfBands[hpfIndex];
         return true;
