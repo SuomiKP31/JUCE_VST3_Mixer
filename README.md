@@ -18,7 +18,13 @@ After that, I implement a new effect for each update and explain how it works, a
 ## Reference
 
 [musicdsp.org](https://www.musicdsp.org)
+
 [Unnamed SDVX Clone - DSP Implementations](https://github.com/Drewol/unnamed-sdvx-clone/blob/develop/Audio/include/Audio/DSP.hpp)
+
+[migizo/REPEAT](https://github.com/migizo/REPEAT)
+
+[Juandagilc's Flanger](https://github.com/juandagilc/Audio-Effects/blob/master/Flanger/Source/PluginProcessor.cpp)
+
 
 ## Setup Guide
 
@@ -66,6 +72,21 @@ Disconnect the pins (right click on Audio Player block), and re-connect them lik
 ![image](https://github.com/SuomiKP31/JUCE_VST3_Mixer/assets/50021290/a5859176-e2ea-4366-8890-a5780136cda0)
 
 Play the audio, then start to turn the knobs.
+
+### Shortcuts
+
+All buttons on the interface has keyboard shortcuts.
+To apply effects, hold shift and press:
+
+-  Q/W/E/R: RE8-RE32
+-  A/S/D/F: GA4-GA16
+-  Z/X/C/V: FL, PH, BC, TP
+
+To slam frequency bands, press:
+
+-  I/O/P for Peak +/Reset/-
+-  K/L/; for LPF +/Reset/-
+-  ,/./? for HPF +/Reset/-
 
 ## Update Oct 22, 2023
 Added basic GUI frameworks and Cut Filters, this part is mostly from a Freecodecamp Tutorial (https://www.youtube.com/watch?v=i_Iq4_Kd7Rc)
