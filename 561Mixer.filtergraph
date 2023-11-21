@@ -65,10 +65,10 @@
           uiLastY_Normal="232" uiopen_Normal="1">
     <PLUGIN name="Mixer561" format="VST3" category="Fx" manufacturer="Shin"
             version="0.0.1" file="E:\2023&#31179;\JUCE_Realtime_Mixer_Demo\JUCE_VST3_Mixer\Mixer561\Builds\VisualStudio2022\x64\Release\VST3\Mixer561.vst3\Contents\x86_64-win\Mixer561.vst3"
-            uniqueId="199e917" isInstrument="0" fileTime="18be9f7e37f" infoUpdateTime="18bea0252ad"
+            uniqueId="199e917" isInstrument="0" fileTime="18befed9f07" infoUpdateTime="18befee9806"
             numInputs="2" numOutputs="2" isShell="0" hasARAExtension="0"
             uid="e95a3221"/>
-    <STATE>628.VMjLgrl....O+fWarAhckI2bo8la8HRLt.iHfTlai8FYo41Y8HRUTYTK3HxO9.BOVMEUy.Ea0cVZtMEcgQWY9vSRC8Vav8lak4Fc9LCN23RPUcTVugiQTcVRWg0bUYzXqkzQt3BQ1EDTEoFUAACQtDDRPokZAAkKNQkKR81XFo0PUczXlgkZhsVQG4RLEYTXvTkQtDjZtDjKt3hKt3hKnM0PD4BTEoFUAACQtDDRPokZAAkKOQkKR81XFo0PUczXlwTQgUWPWkkKXcEVxU0UY4BQPIDQt3hKt3hKt3hKt3hKtTETRUDUS4BQl4xaQYjKAoGTAwDNwL1PUczXlgkZhsVQG4RLEYTXvTkQtDjZtDjKt3hKt3hKtnmKD4BTEoFUAACQtDDRPokZAAkKNQkKSU2Xx.ELQcDRScWLgYWUF4RLEYTXvTkQtDjZtDjKt3hKt3hKt3hKt3BTEoFUAACQtDDRPokZAAkKKQkKTsVQwnkYXolXqUzQtDSQFEFLUYjKAolKA4hKt3hKt3BZCMDQt.UQpQUPvPjKAgDTZoVPP4xRT4BUqUTLZYlXTg0azXjKwTjQgASUF4RPp4RPt3hKt3hKt3hZtPjKPUjZTEDLD4RPHAkVpEDTt3DUtP0ZEEiVlQTUic1cVokdqcjKwTjQgASUF4RPp4RPt3hKt3hKt3hKtPjKt3hKt3hKt3hKtXlTU0DUQAURWoULEYzXqEEUXoWQF4RPDYFTzDzUXkWSG4RPDYmKtnWPt3hKt3hKt3hKJUELPUTPqI1aYcEV5UkQQcVTWgEOujzPu0Fbu4VYtQmO77hUSQ0LPwVcmklaSQWXzUlO..</STATE>
+    <STATE>628.VMjLgrl....O+fWarAhckI2bo8la8HRLt.iHfTlai8FYo41Y8HRUTYTK3HxO9.BOVMEUy.Ea0cVZtMEcgQWY9vSRC8Vav8lak4Fc9LCN23RPUcTVugiQTcVRWg0bUYzXqkzQt3BQ1EDTEoFUAACQtDDRPokZAAkKNQkKR81XFo0PUczXlgkZhsVQG4RLEYTXvTkQtDjZtDjKt3hKt3hKnM0PD4BTEoFUAACQtDDRPokZAAkKOQkKR81XFo0PUczXlwTQgUWPWkkKXcEVxU0UY4BQPIDQt3hKt3hKt3hKt3hKtTETRUDUS4BQl4xaQYjKAoGTAwDNwL1PUczXlgkZhsVQG4RLEYTXvTkQtDjZtDjKt3hKt3hKtnmKD4BTEoFUAACQtDDRPokZAAkKNQkKSU2Xx.ELQcDRScWLgYWUF4RLEYTXvTkQtDjZtDjKt3hKt3hKt3hKt3BTEoFUAACQtDDRPokZAAkKKQkKTsVQwnkYXolXqUzQtDSQFEFLUYjKAolKA4hKt3hKt3hXGIDQt.UQpQUPvPjKAgDTZoVPP4xRT4BUqUTLZYlXTg0azXjKwTjQgASUF4RPp4RPt3hKt3hKt3hKt3hKPUjZTEDLD4RPHAkVpEDTt3DUtP0ZEEiVlQTUic1cVokdqcjKwTjQgASUF4RPp4RPt3hKt3hKt3hKtPjKt3hKt3hKt3hKtXlTU0DUQAURWoULEYzXqEEUXoWQF4RPDYFTzDzUXkWSG4RPDYmKtnWPt3hKt3hKt3hKJUELPUTPqI1aYcEV5UkQQcVTWgEOujzPu0Fbu4VYtQmO77hUSQ0LPwVcmklaSQWXzUlO..</STATE>
     <LAYOUT>
       <INPUTS>
         <BUS index="0" layout="L R"/>
@@ -82,7 +82,7 @@
           uiLastY_Normal="247" uiopen_Normal="1">
     <PLUGIN name="AudioFilePlayer" format="VST3" category="Fx" manufacturer="yourcompany"
             version="1.0.0" file="E:\2023&#31179;\YMFM\AudioFilePlayerPlugin\Builds\VisualStudio2022\x64\Release\VST3\AudioFilePlayer.vst3\Contents\x86_64-win\AudioFilePlayer.vst3"
-            uniqueId="6ace62f" isInstrument="0" fileTime="18be9ffb8e7" infoUpdateTime="18bea0252ad"
+            uniqueId="6ace62f" isInstrument="0" fileTime="18be9ffb8e7" infoUpdateTime="18befee9806"
             numInputs="0" numOutputs="2" isShell="0" hasARAExtension="0"
             uid="e95cbf0a"/>
     <STATE>351.VMjLgXU....O+fWarAhckI2bo8la8HRLt.iHfTlai8FYo41Y8HRUTYTK3HxO9.BOVMEUy.Ea0cVZtMEcgQWY9vSRC8Vav8lak4Fc9DyM43hUMoFSmMiQt3hKt7zJlcUXxEDZisVRxH1a3vVX3fjTLQmKogjYTwVXogiQY8FMwjENHIUUTkEUKMCR38TNtHzS1cmUi01ZrE1bLcUV5E0UZQ2XwHlYDY0XpsVLgw1ZFE1ZvjFRC81PWMzcwDFLQY0TvzzUZk1cqE0ZIcEY2U0UZoGNVMVdAI0RlYFUYM2ZrQVcI01XzomQhkGR3sTNt3hKt3hKt3hKt3hKtQUUCUEQTg2ZrM1YQcUVDUjQicVPP4RPHQEY1UTLhkWPP4RPL4hKi4hKt3hKt3hKtXlTU0DUQAURWoULEYzXqEEUXoWQFwyKIMzasA2atUlaz4COuX0TTMCTrU2Yo41TzEFck4C.</STATE>

@@ -85,6 +85,18 @@ std::vector<juce::Component*> LaunchpadComponent::getComponent()
 
 void LaunchpadComponent::setShortcuts()
 {
+    ResetAll.addShortcut(juce::KeyPress(juce::KeyPress::spaceKey));
+    PeakAdd.addShortcut(juce::KeyPress('i', juce::ModifierKeys::noModifiers, 0));
+    PeakReset.addShortcut(juce::KeyPress('o', juce::ModifierKeys::noModifiers, 0));
+    PeakSubstract.addShortcut(juce::KeyPress('p', juce::ModifierKeys::noModifiers, 0));
+
+    LPFSubtract.addShortcut(juce::KeyPress('k', juce::ModifierKeys::noModifiers, 0));
+    LPFReset.addShortcut(juce::KeyPress('l', juce::ModifierKeys::noModifiers, 0));
+    LPFAdd.addShortcut(juce::KeyPress(';', juce::ModifierKeys::noModifiers, 0));
+
+    HPFAdd.addShortcut(juce::KeyPress('m', juce::ModifierKeys::noModifiers, 0));
+    HPFReset.addShortcut(juce::KeyPress(',', juce::ModifierKeys::noModifiers, 0));
+    HPFSubtract.addShortcut(juce::KeyPress('.', juce::ModifierKeys::noModifiers, 0));
 }
 
 void LaunchpadComponent::initButtons()
