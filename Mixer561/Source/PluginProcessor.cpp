@@ -39,6 +39,10 @@ Mixer561AudioProcessor::Mixer561AudioProcessor()
     reader = wavFormat.createReaderFor(inputStream.get(), true);
     slamAudioSource = std::make_unique<juce::AudioFormatReaderSource>(reader, true);
 
+    peakIndex = 0;
+    lpfIndex = 0;
+    hpfIndex = 0;
+
 }
 
 Mixer561AudioProcessor::~Mixer561AudioProcessor()
