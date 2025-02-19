@@ -219,14 +219,14 @@ void Mixer561AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
     bitcrusherProcessor.process(buffer, sampleRate);
     tapestopProcessor.process(buffer, sampleRate);
 
-    // Filters should run last
-    leftChain.process(left_context);
-    rightChain.process(right_context);
-
     // Mix with launchpad sources
     juce::AudioSampleBuffer mixbuffer(2, bufferSampleCount);
     juce::AudioSourceChannelInfo mixInfo(mixbuffer);
     mixer.getNextAudioBlock(mixInfo);
+
+    // Filters should run last
+    leftChain.process(left_context);
+    rightChain.process(right_context);
 
     buffer.addFrom(0, 0, *mixInfo.buffer, 0, 0, bufferSampleCount, 1.0);
     buffer.addFrom(1, 0, *mixInfo.buffer, 1, 0, bufferSampleCount, 1.0);
