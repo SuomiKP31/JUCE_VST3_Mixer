@@ -104,8 +104,6 @@ void Mixer561AudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
     leftChain.prepare(spec);
     rightChain.prepare(spec);
 
-    // TODO: Init effectors here
-
     UpdateFilters();
 }
 
@@ -155,8 +153,6 @@ void Mixer561AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
     // this code if your algorithm always overwrites all the output channels.
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
-
-    // TODO: Resize effector DSP buffers here if needed
 
 
     UpdateFilters();
@@ -233,8 +229,22 @@ ChainSettings getChainSettings(juce::AudioProcessorValueTreeState& apvts)
 
 Coefficient makePeakFilter(const ChainSettings& chain_settings, double sampleRate)
 {
-    return juce::dsp::IIR::Coefficients<float>::makePeakFilter(sampleRate, chain_settings.peakFreq,
-        chain_settings.peakQuality, juce::Decibels::decibelsToGain(chain_settings.peakGainInDecibels));
+    // Modified to test tone filter normalization and IIR parameters
+    //auto coef = juce::dsp::IIR::Coefficients<float>::makePeakFilter(sampleRate, chain_settings.peakFreq,
+    //    chain_settings.peakQuality, juce::Decibels::decibelsToGain(chain_settings.peakGainInDecibels));
+    float r = 0.9999;
+    float omega = 2.0 * juce::MathConstants<double>::pi * chain_settings.peakFreq / sampleRate;
+    auto coef = new juce::dsp::IIR::Coefficients<float>{1, 0, -1, 1, -2*r*cos(omega), r*r };
+    auto raw_coef = coef->getRawCoefficients();
+    
+    double normalizationFactor = 1 / coef->getMagnitudeForFrequency(chain_settings.peakFreq, sampleRate);
+    for (size_t i = 0; i < 3; i++) // Normalize the b_i s to reduce gain over the spectrum
+    {
+        raw_coef[i] *= normalizationFactor;
+    }
+    // Verified
+    // juce::Logger::writeToLog("Mag at Peak = " + juce::String(coef->getMagnitudeForFrequency(chain_settings.peakFreq, sampleRate)));
+    return coef;
 }
 
 void UpdateCoefficients(Coefficient& old, const Coefficient& replacement)
@@ -281,7 +291,6 @@ juce::AudioProcessorValueTreeState::ParameterLayout Mixer561AudioProcessor::crea
 void Mixer561AudioProcessor::UpdatePeakFilter(const ChainSettings& chain_settings)
 {
     auto peak_coef = makePeakFilter(chain_settings, getSampleRate());
-
     *leftChain.get<Peak>().coefficients = *peak_coef;
     *rightChain.get<Peak>().coefficients = *peak_coef;
 }
