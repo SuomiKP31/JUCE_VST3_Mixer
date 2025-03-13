@@ -41,10 +41,10 @@
  #define JucePlugin_Enable_ARA             0
 #endif
 #ifndef  JucePlugin_Name
- #define JucePlugin_Name                   "Mixer561"
+ #define JucePlugin_Name                   "ToneFilter575"
 #endif
 #ifndef  JucePlugin_Desc
- #define JucePlugin_Desc                   "Mixer561"
+ #define JucePlugin_Desc                   "ToneFilter575"
 #endif
 #ifndef  JucePlugin_Manufacturer
  #define JucePlugin_Manufacturer           "Shin"
@@ -101,19 +101,19 @@
  #define JucePlugin_AUSubType              JucePlugin_PluginCode
 #endif
 #ifndef  JucePlugin_AUExportPrefix
- #define JucePlugin_AUExportPrefix         Mixer561AU
+ #define JucePlugin_AUExportPrefix         ToneFilter575AU
 #endif
 #ifndef  JucePlugin_AUExportPrefixQuoted
- #define JucePlugin_AUExportPrefixQuoted   "Mixer561AU"
+ #define JucePlugin_AUExportPrefixQuoted   "ToneFilter575AU"
 #endif
 #ifndef  JucePlugin_AUManufacturerCode
  #define JucePlugin_AUManufacturerCode     JucePlugin_ManufacturerCode
 #endif
 #ifndef  JucePlugin_CFBundleIdentifier
- #define JucePlugin_CFBundleIdentifier     com.Shin.Mixer561
+ #define JucePlugin_CFBundleIdentifier     com.Shin.ToneFilter575
 #endif
 #ifndef  JucePlugin_AAXIdentifier
- #define JucePlugin_AAXIdentifier          com.Shin.Mixer561
+ #define JucePlugin_AAXIdentifier          com.Shin.ToneFilter575
 #endif
 #ifndef  JucePlugin_AAXManufacturerCode
  #define JucePlugin_AAXManufacturerCode    JucePlugin_ManufacturerCode
@@ -137,7 +137,7 @@
  #define JucePlugin_IAASubType             JucePlugin_PluginCode
 #endif
 #ifndef  JucePlugin_IAAName
- #define JucePlugin_IAAName                "Shin: Mixer561"
+ #define JucePlugin_IAAName                "Shin: ToneFilter575"
 #endif
 #ifndef  JucePlugin_VSTNumMidiInputs
  #define JucePlugin_VSTNumMidiInputs       16
@@ -152,10 +152,10 @@
  #define JucePlugin_ARATransformationFlags  0
 #endif
 #ifndef  JucePlugin_ARAFactoryID
- #define JucePlugin_ARAFactoryID           "com.Shin.Mixer561.factory"
+ #define JucePlugin_ARAFactoryID           "com.Shin.ToneFilter575.factory"
 #endif
 #ifndef  JucePlugin_ARADocumentArchiveID
- #define JucePlugin_ARADocumentArchiveID   "com.Shin.Mixer561.aradocumentarchive.0.0.1"
+ #define JucePlugin_ARADocumentArchiveID   "com.Shin.ToneFilter575.aradocumentarchive.0.0.1"
 #endif
 #ifndef  JucePlugin_ARACompatibleArchiveIDs
  #define JucePlugin_ARACompatibleArchiveIDs  ""

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="TeWbhh" name="Mixer561" projectType="audioplug" useAppConfig="0"
+<JUCERPROJECT id="TeWbhh" name="ToneFilter575" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
               version="0.0.1" companyName="Shin" companyEmail="zhixinfang@uvic.ca"
               pluginVST3Category="Fx">
-  <MAINGROUP id="w8m4hb" name="Mixer561">
+  <MAINGROUP id="w8m4hb" name="ToneFilter575">
     <GROUP id="{23A40B0D-2477-FDC2-3203-D677FF3C5184}" name="Resources">
       <FILE id="K4gmsj" name="561Mixer.png" compile="0" resource="1" file="Resources/561Mixer.png"/>
     </GROUP>
