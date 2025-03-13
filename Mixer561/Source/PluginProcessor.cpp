@@ -101,6 +101,17 @@ void Mixer561AudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
     spec.sampleRate = sampleRate;
     spec.maximumBlockSize = sampleRate;
 
+    for (int i = 0; i < 48; ++i)
+    {
+        // Initialize each unique_ptr with a new AudioBuffer. We don't need stereo in tone filters.
+        ToneBuffers[i] = std::make_unique<juce::AudioBuffer<float>>(1, samplesPerBlock);
+        // Make tone filters.
+        ToneFilterArray[i] = std::make_unique<Filter>(makeToneFilter(440.f * std::exp2(float(i - 12) / 12.0f), sampleRate));
+        // juce::Logger::writeToLog("FR: i = "+ juce::String(i) + " freq = " + juce::String(440.f * std::exp2(float(i - 12) / 12.0f)));
+        ToneFilterArray[i]->prepare(spec);
+    }
+    SideTrackBuffer = std::make_unique<juce::AudioBuffer<float>>(1, samplesPerBlock); // Used to store side track and mix
+
     leftChain.prepare(spec);
     rightChain.prepare(spec);
 
@@ -153,23 +164,36 @@ void Mixer561AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
     // this code if your algorithm always overwrites all the output channels.
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
-
+    
 
     UpdateFilters();
 
     juce::dsp::AudioBlock<float> block(buffer);
+    // juce::dsp::AudioBlock<float> sideBlock(*SideTrackBuffer);
 
     auto left_block = block.getSingleChannelBlock(0);
     auto right_block = block.getSingleChannelBlock(1);
 
+    // Mono average to sidetrack
+    SideTrackBuffer->clear();
+    SideTrackBuffer->addFrom(0, 0, buffer.getReadPointer(0), SideTrackBuffer->getNumSamples(), 0);
+    SideTrackBuffer->addFrom(0, 0, buffer.getReadPointer(1), SideTrackBuffer->getNumSamples(), 0.5);
+    juce::dsp::AudioBlock<float> sideTrackBlock(*SideTrackBuffer);
+
     juce::dsp::ProcessContextReplacing<float> left_context(left_block);
     juce::dsp::ProcessContextReplacing<float> right_context(right_block);
 
-
     auto sampleRate = getSampleRate();
 
-    // Effectors run first
-
+    // Tone Filtering
+    for (size_t i = 0; i < 48; i++)
+    {
+        ToneBuffers[i]->clear();
+        juce::dsp::AudioBlock<float> toneBlock(*ToneBuffers[i]);
+        juce::dsp::ProcessContextNonReplacing<float> tone_context(sideTrackBlock, toneBlock);
+        ToneFilterArray[i]->process(tone_context);
+    }
+    // ToneProcess(*SideTrackBuffer, left_block , right_block);
     // Filters should run last
     leftChain.process(left_context);
     rightChain.process(right_context);
@@ -229,15 +253,19 @@ ChainSettings getChainSettings(juce::AudioProcessorValueTreeState& apvts)
 
 Coefficient makePeakFilter(const ChainSettings& chain_settings, double sampleRate)
 {
-    // Modified to test tone filter normalization and IIR parameters
-    //auto coef = juce::dsp::IIR::Coefficients<float>::makePeakFilter(sampleRate, chain_settings.peakFreq,
-    //    chain_settings.peakQuality, juce::Decibels::decibelsToGain(chain_settings.peakGainInDecibels));
+    return juce::dsp::IIR::Coefficients<float>::makePeakFilter(sampleRate, chain_settings.peakFreq,
+       chain_settings.peakQuality, juce::Decibels::decibelsToGain(chain_settings.peakGainInDecibels));
+}
+
+Coefficient makeToneFilter(const float frequency, double sampleRate)
+{
     float r = 0.9999;
-    float omega = 2.0 * juce::MathConstants<double>::pi * chain_settings.peakFreq / sampleRate;
-    auto coef = new juce::dsp::IIR::Coefficients<float>{1, 0, -1, 1, -2*r*cos(omega), r*r };
+    float omega = 2.0 * juce::MathConstants<double>::pi * frequency / sampleRate;
+    // This puts two zeros at DC/Nyquist, and two poles as complex conjugate with real-part aligned with omega
+    auto coef = new juce::dsp::IIR::Coefficients<float>{ 1, 0, -1, 1, -2 * r * cos(omega), r * r };
     auto raw_coef = coef->getRawCoefficients();
-    
-    double normalizationFactor = 1 / coef->getMagnitudeForFrequency(chain_settings.peakFreq, sampleRate);
+
+    double normalizationFactor = 1 / coef->getMagnitudeForFrequency(frequency, sampleRate);
     for (size_t i = 0; i < 3; i++) // Normalize the b_i s to reduce gain over the spectrum
     {
         raw_coef[i] *= normalizationFactor;
@@ -324,6 +352,7 @@ void Mixer561AudioProcessor::UpdateHighCutFilters(ChainSettings& chain_settings)
     UpdateCutFilter(leftlpf, cut_hcoef, chain_settings.highCutSlope);
     UpdateCutFilter(rightlpf, cut_hcoef, chain_settings.highCutSlope);
 }
+
 
 //==============================================================================
 // This creates new instances of the plugin..

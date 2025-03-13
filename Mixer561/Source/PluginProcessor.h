@@ -43,6 +43,7 @@ void UpdateCoefficients(Coefficient& old, const Coefficient& replacement);
 
 ChainSettings getChainSettings(juce::AudioProcessorValueTreeState& apvts);
 Coefficient makePeakFilter(const ChainSettings& chain_settings, double sampleRate);
+Coefficient makeToneFilter(const float frequency, double sampleRate);
 
 inline auto makeLowCutCoefficient(const ChainSettings& chain_settings, double sampleRate)
 {
@@ -153,6 +154,12 @@ private:
     void UpdateFilters();
     void UpdateLowCutFilters(ChainSettings& chain_settings);
     void UpdateHighCutFilters(ChainSettings& chain_settings);
+
+    //=====================Tone Filter==============================================
+    std::unique_ptr<Filter> ToneFilterArray[48]; // We average all the inputs to mono so only one group is needed here
+    std::unique_ptr<juce::AudioBuffer<float>> ToneBuffers[48];
+    std::unique_ptr<juce::AudioBuffer<float>> SideTrackBuffer;
+    // void ToneProcess(juce::AudioBuffer<float>& sideTrack, juce::AudioBlock<float>& lBuffer, juce::AudioBlock<float>& rBuffer);
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Mixer561AudioProcessor)
 };
