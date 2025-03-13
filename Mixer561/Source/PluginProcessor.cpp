@@ -111,6 +111,7 @@ void Mixer561AudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
         ToneFilterArray[i]->prepare(spec);
     }
     SideTrackBuffer = std::make_unique<juce::AudioBuffer<float>>(1, samplesPerBlock); // Used to store side track and mix
+    TempTrackBuffer = std::make_unique<juce::AudioBuffer<float>>(1, samplesPerBlock); // Used to store the mono audio
 
     leftChain.prepare(spec);
     rightChain.prepare(spec);
@@ -175,9 +176,11 @@ void Mixer561AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
     auto right_block = block.getSingleChannelBlock(1);
 
     // Mono average to sidetrack
-    SideTrackBuffer->clear();
-    SideTrackBuffer->addFrom(0, 0, buffer.getReadPointer(0), SideTrackBuffer->getNumSamples(), 0);
-    SideTrackBuffer->addFrom(0, 0, buffer.getReadPointer(1), SideTrackBuffer->getNumSamples(), 0.5);
+    TempTrackBuffer->clear();
+    TempTrackBuffer->addFrom(0, 0, buffer.getReadPointer(0), TempTrackBuffer->getNumSamples(), 0.5);
+    TempTrackBuffer->addFrom(0, 0, buffer.getReadPointer(1), TempTrackBuffer->getNumSamples(), 0.5);
+
+    juce::dsp::AudioBlock<float> tmpTrackBlock(*TempTrackBuffer);
     juce::dsp::AudioBlock<float> sideTrackBlock(*SideTrackBuffer);
 
     juce::dsp::ProcessContextReplacing<float> left_context(left_block);
@@ -186,17 +189,25 @@ void Mixer561AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
     auto sampleRate = getSampleRate();
 
     // Tone Filtering
+    SideTrackBuffer->clear();
     for (size_t i = 0; i < 48; i++)
     {
         ToneBuffers[i]->clear();
         juce::dsp::AudioBlock<float> toneBlock(*ToneBuffers[i]);
-        juce::dsp::ProcessContextNonReplacing<float> tone_context(sideTrackBlock, toneBlock);
+        juce::dsp::ProcessContextNonReplacing<float> tone_context(tmpTrackBlock, toneBlock);
         ToneFilterArray[i]->process(tone_context);
+        // ToneBuffers[i]->getRMSLevel(0, 0, toneBlock.getNumSamples());
+        // ToneBuffers[i]->applyGain(1 / 48.0 ???); // TODO: Adjust energy based on magnitude
+        sideTrackBlock.add(toneBlock);
     }
-    // ToneProcess(*SideTrackBuffer, left_block , right_block);
+    // ToneProcess(*TempTrackBuffer, left_block , right_block);
+    buffer.clear();
+    buffer.addFrom(0, 0, SideTrackBuffer->getReadPointer(0), buffer.getNumSamples(), 1);
+    buffer.addFrom(1, 0, SideTrackBuffer->getReadPointer(0), buffer.getNumSamples(), 1);
+
     // Filters should run last
-    leftChain.process(left_context);
-    rightChain.process(right_context);
+    //leftChain.process(left_context);
+    //rightChain.process(right_context);
 
 }
 

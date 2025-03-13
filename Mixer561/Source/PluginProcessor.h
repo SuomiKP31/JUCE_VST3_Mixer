@@ -158,7 +158,8 @@ private:
     //=====================Tone Filter==============================================
     std::unique_ptr<Filter> ToneFilterArray[48]; // We average all the inputs to mono so only one group is needed here
     std::unique_ptr<juce::AudioBuffer<float>> ToneBuffers[48];
-    std::unique_ptr<juce::AudioBuffer<float>> SideTrackBuffer;
+    std::unique_ptr<juce::AudioBuffer<float>> SideTrackBuffer; // Save the final mix result of this frame
+    std::unique_ptr<juce::AudioBuffer<float>> TempTrackBuffer; // Used to save the original track averaged to 1 channel temporarily
     // void ToneProcess(juce::AudioBuffer<float>& sideTrack, juce::AudioBlock<float>& lBuffer, juce::AudioBlock<float>& rBuffer);
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Mixer561AudioProcessor)
