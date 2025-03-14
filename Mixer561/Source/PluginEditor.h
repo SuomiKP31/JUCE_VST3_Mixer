@@ -11,6 +11,7 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 #include "TimeDomainProcessingComponent.h"
+#include "ToneFilterComponent.h"
 
 //==============================================================================
 /**
@@ -156,7 +157,8 @@ private:
         highCutSlopeSlider;
 
     ResponseCurveComponent responseCurveComponent;
-    TimeDomainProcessingComponent timeDomainComponent;
+    //TimeDomainProcessingComponent timeDomainComponent;
+    ToneFilterComponent toneFilterComponent;
 
     using APVTS = juce::AudioProcessorValueTreeState;
     using Attachment = APVTS::SliderAttachment;

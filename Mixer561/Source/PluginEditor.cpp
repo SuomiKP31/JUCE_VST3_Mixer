@@ -399,7 +399,7 @@ Mixer561AudioProcessorEditor::Mixer561AudioProcessorEditor(Mixer561AudioProcesso
     lowCutSlopeSlider(*audioProcessor.apvts.getParameter("LowCut Slope"), "db/Oct"),
     highCutSlopeSlider(*audioProcessor.apvts.getParameter("HighCut Slope"), "db/Oct"),
     responseCurveComponent(p),
-    timeDomainComponent(p),
+    toneFilterComponent(p),
     peakFreqAttachment(audioProcessor.apvts, "Peak Freq", peakFreqSlider),
     peakGainAttachment(audioProcessor.apvts, "Peak Gain", peakGainSlider),
     peakQualityAttachment(audioProcessor.apvts, "Peak Quality", peakQualitySlider),
@@ -483,7 +483,7 @@ void Mixer561AudioProcessorEditor::resized()
     auto timeDomainArea = bound.removeFromBottom(bound.getHeight() * 0.33);
     auto responseArea = bound.removeFromTop(bound.getHeight() * 0.25);
     responseCurveComponent.setBounds(responseArea);
-    timeDomainComponent.setBounds(timeDomainArea);
+    toneFilterComponent.setBounds(timeDomainArea);
 
     knobLabelBound = bound.removeFromTop(bound.getHeight() * 0.1);
 
@@ -524,7 +524,7 @@ std::vector<juce::Component*> Mixer561AudioProcessorEditor::GetComps()
         &lowCutSlopeSlider,
         &highCutSlopeSlider,
         &responseCurveComponent,
-        &timeDomainComponent
+        &toneFilterComponent
     };
 }
 

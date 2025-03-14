@@ -26,8 +26,12 @@ public:
     Mixer561AudioProcessor& audioProcessor;
 
     //LabeledTextInputField bpmInput;
-    juce::Slider mixingStrength;
-    juce::ToggleButton bypass;
+    juce::Slider mixingStrengthSld;
+    juce::Slider originTrackAttenuationSld;
+    juce::ToggleButton bypassToggle;
+
+    juce::Label mixLabel;
+    juce::Label attenuationLabel;
 
     float* toneRMS; // Just pass the array here...
 

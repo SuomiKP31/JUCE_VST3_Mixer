@@ -190,7 +190,7 @@ void Mixer561AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
 
     auto sampleRate = getSampleRate();
 
-    // P1: Tone Filtering
+    // Pass 1: Tone Filtering
     SideTrackBuffer->clear();
     for (size_t i = 0; i < 48; i++)
     {
@@ -201,7 +201,7 @@ void Mixer561AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
         ToneFilterArray[i]->process(tone_context);
     }
 
-    // P2: Running Leveling and Distortion
+    // Pass 2: Running Leveling and Distortion
     size_t count = TempTrackBuffer->getNumSamples();
     auto in_samples = TempTrackBuffer->getReadPointer(0);
     auto sideTrackWritePointer = SideTrackBuffer->getWritePointer(0);
@@ -233,26 +233,21 @@ void Mixer561AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
         
     }
 
-    // P3: Write back to sidetrack
+    // Pass 3: Write back to sidetrack
     for (size_t i = 0; i < 48; i++) {
         juce::dsp::AudioBlock<float> toneBlock(*ToneBuffers[i]);
         sideTrackBlock.add(toneBlock);
     }
 
-    
+    // Original input gain
 
-    // Lerp the running power with tone power...
-
-    buffer.clear();
     buffer.addFrom(0, 0, SideTrackBuffer->getReadPointer(0), buffer.getNumSamples(), 1);
     buffer.addFrom(1, 0, SideTrackBuffer->getReadPointer(0), buffer.getNumSamples(), 1);
 
-    // Distortion
-
     
     // Filters should run last (Temporarily removed, will add back)
-    //leftChain.process(left_context);
-    //rightChain.process(right_context);
+    leftChain.process(left_context);
+    rightChain.process(right_context);
 
 }
 
