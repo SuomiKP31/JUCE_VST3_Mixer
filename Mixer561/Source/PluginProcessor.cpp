@@ -112,6 +112,8 @@ void Mixer561AudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
     }
     SideTrackBuffer = std::make_unique<juce::AudioBuffer<float>>(1, samplesPerBlock); // Used to store side track and mix
     TempTrackBuffer = std::make_unique<juce::AudioBuffer<float>>(1, samplesPerBlock); // Used to store the mono audio
+    tone_power_lerp = float(1.0 - exp(log(0.00503) / sampleRate)); // TODO: Make these a slider
+    total_tone_power_lerp = float(1.0 - exp(log(0.01215) / sampleRate));
 
     leftChain.prepare(spec);
     rightChain.prepare(spec);
@@ -175,7 +177,7 @@ void Mixer561AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
     auto left_block = block.getSingleChannelBlock(0);
     auto right_block = block.getSingleChannelBlock(1);
 
-    // Mono average to sidetrack
+    // Mono average to temp track (used for tone generation)
     TempTrackBuffer->clear();
     TempTrackBuffer->addFrom(0, 0, buffer.getReadPointer(0), TempTrackBuffer->getNumSamples(), 0.5);
     TempTrackBuffer->addFrom(0, 0, buffer.getReadPointer(1), TempTrackBuffer->getNumSamples(), 0.5);
@@ -188,24 +190,67 @@ void Mixer561AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
 
     auto sampleRate = getSampleRate();
 
-    // Tone Filtering
+    // P1: Tone Filtering
     SideTrackBuffer->clear();
     for (size_t i = 0; i < 48; i++)
     {
         ToneBuffers[i]->clear();
         juce::dsp::AudioBlock<float> toneBlock(*ToneBuffers[i]);
+        //size_t nSamples = toneBlock.getNumSamples();
         juce::dsp::ProcessContextNonReplacing<float> tone_context(tmpTrackBlock, toneBlock);
         ToneFilterArray[i]->process(tone_context);
-        // ToneBuffers[i]->getRMSLevel(0, 0, toneBlock.getNumSamples());
-        // ToneBuffers[i]->applyGain(1 / 48.0 ???); // TODO: Adjust energy based on magnitude
+    }
+
+    // P2: Running Leveling and Distortion
+    size_t count = TempTrackBuffer->getNumSamples();
+    auto in_samples = TempTrackBuffer->getReadPointer(0);
+    auto sideTrackWritePointer = SideTrackBuffer->getWritePointer(0);
+    for (size_t i = 0; i < count; i++)
+    {
+        float in_sample = in_samples[i];
+        running_total_power = running_total_power * (1.0f - total_tone_power_lerp) +
+            total_tone_power_lerp * in_sample * in_sample;
+
+        // Energy estimate of the original track
+        float low_threshold = 0.0002f * running_total_power;
+        float high_threshold = 0.1f * running_total_power;
+        float low_threshold_divider =
+            1.0f / std::max(0.00000000001f, low_threshold * low_threshold * low_threshold); // These lines are full of MAGIC
+
+        for (size_t tone = 0; tone < 48; tone++) {
+            float ret = ToneBuffers[tone]->getSample(0, i);
+            float new_power = ret * ret;
+            new_power = std::min(new_power, new_power * new_power * new_power * new_power * low_threshold_divider);
+            new_power = std::min(new_power, high_threshold);
+
+            new_power = (1.0f - tone_power_lerp) * runningPower[tone] + tone_power_lerp * new_power;
+            runningPower[tone] = new_power;
+
+            float rms = std::sqrt(new_power);
+            float final_sample = rms * distort(ret * 40.0f / (rms + 0.001f));
+            ToneBuffers[tone]->setSample(0, i, final_sample);
+        }
+        
+    }
+
+    // P3: Write back to sidetrack
+    for (size_t i = 0; i < 48; i++) {
+        juce::dsp::AudioBlock<float> toneBlock(*ToneBuffers[i]);
         sideTrackBlock.add(toneBlock);
     }
-    // ToneProcess(*TempTrackBuffer, left_block , right_block);
+
+    
+
+    // Lerp the running power with tone power...
+
     buffer.clear();
     buffer.addFrom(0, 0, SideTrackBuffer->getReadPointer(0), buffer.getNumSamples(), 1);
     buffer.addFrom(1, 0, SideTrackBuffer->getReadPointer(0), buffer.getNumSamples(), 1);
 
-    // Filters should run last
+    // Distortion
+
+    
+    // Filters should run last (Temporarily removed, will add back)
     //leftChain.process(left_context);
     //rightChain.process(right_context);
 

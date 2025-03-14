@@ -45,6 +45,12 @@ ChainSettings getChainSettings(juce::AudioProcessorValueTreeState& apvts);
 Coefficient makePeakFilter(const ChainSettings& chain_settings, double sampleRate);
 Coefficient makeToneFilter(const float frequency, double sampleRate);
 
+static inline float distort(float v) 
+{
+    float abs_v = std::abs(v);
+    return v / (1.0f + abs_v);
+}
+
 inline auto makeLowCutCoefficient(const ChainSettings& chain_settings, double sampleRate)
 {
     return juce::dsp::FilterDesign<float>::designIIRHighpassHighOrderButterworthMethod(
@@ -160,6 +166,12 @@ private:
     std::unique_ptr<juce::AudioBuffer<float>> ToneBuffers[48];
     std::unique_ptr<juce::AudioBuffer<float>> SideTrackBuffer; // Save the final mix result of this frame
     std::unique_ptr<juce::AudioBuffer<float>> TempTrackBuffer; // Used to save the original track averaged to 1 channel temporarily
+
+    float runningPower[48]; // Collect energy distribution
+    float running_total_power; //
+    float tone_power_lerp = 0.00012f; // Will be adjusted later based on sample rate
+    float total_tone_power_lerp = 0.0001f;
+
     // void ToneProcess(juce::AudioBuffer<float>& sideTrack, juce::AudioBlock<float>& lBuffer, juce::AudioBlock<float>& rBuffer);
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Mixer561AudioProcessor)

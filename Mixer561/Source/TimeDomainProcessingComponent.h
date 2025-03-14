@@ -64,8 +64,6 @@ public:
     Mixer561AudioProcessor& audioProcessor;
 
     LabeledTextInputField bpmInput;
-    
-    // TODO: Init trigger buttons
 
 
 private:
