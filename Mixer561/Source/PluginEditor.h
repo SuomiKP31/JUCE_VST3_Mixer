@@ -160,6 +160,13 @@ private:
     //TimeDomainProcessingComponent timeDomainComponent;
     ToneFilterComponent toneFilterComponent;
 
+    juce::Slider mixingStrengthSlider;
+    juce::Slider originTrackAttenuationSlider;
+    juce::ToggleButton bypassToggle;
+
+    juce::Label mixLabel;
+    juce::Label attenuationLabel;
+
     using APVTS = juce::AudioProcessorValueTreeState;
     using Attachment = APVTS::SliderAttachment;
 
@@ -169,7 +176,10 @@ private:
         lowCutFreqAttachment,
         highCutFreqAttachment,
         lowCutSlopeAttachment,
-        highCutSlopeAttachment;
+        highCutSlopeAttachment,
+        toneStrengthAttachment,
+        originalAttenuationAttachment;
+
 
 
     std::vector<juce::Component*> GetComps();

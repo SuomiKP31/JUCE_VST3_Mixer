@@ -171,6 +171,10 @@ void Mixer561AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
 
     UpdateFilters();
 
+    auto chain = getChainSettings(apvts);
+    float atten = chain.originalAttenuation;
+    float tonePower = chain.toneStrength;
+
     juce::dsp::AudioBlock<float> block(buffer);
     // juce::dsp::AudioBlock<float> sideBlock(*SideTrackBuffer);
 
@@ -238,9 +242,10 @@ void Mixer561AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
         juce::dsp::AudioBlock<float> toneBlock(*ToneBuffers[i]);
         sideTrackBlock.add(toneBlock);
     }
+    SideTrackBuffer->applyGain(tonePower);
 
     // Original input gain
-
+    buffer.applyGain(1.0f - atten);
     buffer.addFrom(0, 0, SideTrackBuffer->getReadPointer(0), buffer.getNumSamples(), 1);
     buffer.addFrom(1, 0, SideTrackBuffer->getReadPointer(0), buffer.getNumSamples(), 1);
 
@@ -299,6 +304,10 @@ ChainSettings getChainSettings(juce::AudioProcessorValueTreeState& apvts)
     setting.lowCutSlope = apvts.getRawParameterValue("LowCut Slope")->load();
     setting.highCutSlope = apvts.getRawParameterValue("HighCut Slope")->load();
 
+    // Added for tone filter 575
+    setting.toneStrength = apvts.getRawParameterValue("Tone Strength")->load();
+    setting.originalAttenuation = apvts.getRawParameterValue("Tone Original Attenuation")->load();
+
     return setting;
 }
 
@@ -351,6 +360,12 @@ juce::AudioProcessorValueTreeState::ParameterLayout Mixer561AudioProcessor::crea
     layout.add(std::make_unique<juce::AudioParameterFloat>("Peak Quality", "Peak Quality",
         juce::NormalisableRange<float>(0.1f, 10.f, .05f, 1),
         1.0f));    // Bandwidth of Peak
+    layout.add(std::make_unique<juce::AudioParameterFloat>("Tone Strength", "Tone Strength",
+        juce::NormalisableRange<float>(0.f, 1.f, .01f, 1),
+        1.0f));    // Tone Filter gain
+    layout.add(std::make_unique<juce::AudioParameterFloat>("Tone Original Attenuation", "Tone Original Attenuation",
+        juce::NormalisableRange<float>(0.f, 1.f, .01f, 1),
+        0.0f));    // Original Track attenuation when mixed with tone filter
 
     juce::StringArray string_array;
     for (int i = 0; i < 4; i++)
@@ -365,6 +380,11 @@ juce::AudioProcessorValueTreeState::ParameterLayout Mixer561AudioProcessor::crea
     layout.add(std::make_unique<juce::AudioParameterChoice>("HighCut Slope", "HighCut(LP) Slope", string_array, 0));
 
     return layout;
+}
+
+void Mixer561AudioProcessor::SetToneFilterBypass(bool bypassed)
+{
+    tone_bypassed = bypassed;
 }
 
 void Mixer561AudioProcessor::UpdatePeakFilter(const ChainSettings& chain_settings)
@@ -382,6 +402,8 @@ void Mixer561AudioProcessor::UpdateFilters()
     UpdateLowCutFilters(chain_settings);
 
     UpdateHighCutFilters(chain_settings);
+
+    
 }
 
 void Mixer561AudioProcessor::UpdateLowCutFilters(ChainSettings& chain_settings)

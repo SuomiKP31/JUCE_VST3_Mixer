@@ -30,6 +30,7 @@ struct ChainSettings
     float peakFreq{ 0 }, peakGainInDecibels{ 0 }, peakQuality{ 1.f };
     float lowCutFreq{ 0 }, highCutFreq{ 0 };
     int lowCutSlope{ 0 }, highCutSlope{ 0 };
+    float toneStrength{ 0 }, originalAttenuation{ 0 };
 };
 
 // ==== Aliases ====
@@ -152,6 +153,8 @@ public:
     //==============================================================================
     static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout(); // Create apvts, for saving our filter parameters
     juce::AudioProcessorValueTreeState apvts{*this, nullptr, "AudioParameter", createParameterLayout()};
+    //==============================================================================
+    void SetToneFilterBypass(bool bypassed);
 
 private:
     //==============================================================================
@@ -171,6 +174,7 @@ private:
     float running_total_power; //
     float tone_power_lerp = 0.00012f; // Will be adjusted later based on sample rate
     float total_tone_power_lerp = 0.0001f;
+    bool tone_bypassed = false;
 
     // void ToneProcess(juce::AudioBuffer<float>& sideTrack, juce::AudioBlock<float>& lBuffer, juce::AudioBlock<float>& rBuffer);
     //==============================================================================

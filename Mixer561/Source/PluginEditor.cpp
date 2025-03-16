@@ -406,7 +406,9 @@ Mixer561AudioProcessorEditor::Mixer561AudioProcessorEditor(Mixer561AudioProcesso
     lowCutFreqAttachment(audioProcessor.apvts, "LowCut Freq", lowCutFreqSlider),
     highCutFreqAttachment(audioProcessor.apvts, "HighCut Freq", highCutFreqSlider),
     lowCutSlopeAttachment(audioProcessor.apvts, "LowCut Slope", lowCutSlopeSlider),
-    highCutSlopeAttachment(audioProcessor.apvts, "HighCut Slope", highCutSlopeSlider)
+    highCutSlopeAttachment(audioProcessor.apvts, "HighCut Slope", highCutSlopeSlider),
+    toneStrengthAttachment(audioProcessor.apvts, "Tone Strength", mixingStrengthSlider),
+    originalAttenuationAttachment(audioProcessor.apvts, "Tone Original Attenuation", originTrackAttenuationSlider)
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
@@ -440,6 +442,8 @@ Mixer561AudioProcessorEditor::Mixer561AudioProcessorEditor(Mixer561AudioProcesso
 
 
     setSize(800, 960);
+    mixingStrengthSlider.setRange(0, 1);
+    originTrackAttenuationSlider.setRange(0, 1);
 
 }
 
@@ -480,7 +484,9 @@ void Mixer561AudioProcessorEditor::resized()
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
     auto bound = getLocalBounds();
+    
     auto timeDomainArea = bound.removeFromBottom(bound.getHeight() * 0.33);
+    auto controllerBound = bound.removeFromBottom(0.10 * bound.getHeight());
     auto responseArea = bound.removeFromTop(bound.getHeight() * 0.25);
     responseCurveComponent.setBounds(responseArea);
     toneFilterComponent.setBounds(timeDomainArea);
@@ -507,6 +513,25 @@ void Mixer561AudioProcessorEditor::resized()
     labels.add(KnobLabel(0.5f, "Peak"));
     labels.add(KnobLabel(0.83f, "LPF"));
 
+    // Tone Filter UI
+    float controllerStripWidth = controllerBound.getWidth();
+
+    auto toggleBound = controllerBound.removeFromLeft(.2f * controllerStripWidth);
+    auto mixStrengthSliderBound = controllerBound.removeFromLeft(0.4f * controllerStripWidth);
+
+    auto text1Bound = mixStrengthSliderBound.removeFromTop(mixStrengthSliderBound.getHeight() * 0.33);
+    auto text2Bound = controllerBound.removeFromTop(controllerBound.getHeight() * 0.33);
+
+    bypassToggle.setBounds(toggleBound);
+    bypassToggle.setButtonText("ToneFilter Bypass");
+
+    mixingStrengthSlider.setBounds(mixStrengthSliderBound);
+    originTrackAttenuationSlider.setBounds(controllerBound);
+
+    mixLabel.setText("Harmonic Strength", juce::NotificationType::dontSendNotification);
+    mixLabel.setBounds(text1Bound);
+    attenuationLabel.setText("Original Track Attenuation", juce::NotificationType::dontSendNotification);
+    attenuationLabel.setBounds(text2Bound);
 }
 
 
@@ -524,7 +549,12 @@ std::vector<juce::Component*> Mixer561AudioProcessorEditor::GetComps()
         &lowCutSlopeSlider,
         &highCutSlopeSlider,
         &responseCurveComponent,
-        &toneFilterComponent
+        &toneFilterComponent,
+        & mixingStrengthSlider,
+        & originTrackAttenuationSlider,
+        & bypassToggle,
+        & mixLabel,
+        & attenuationLabel
     };
 }
 

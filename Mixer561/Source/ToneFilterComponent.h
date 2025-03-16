@@ -25,20 +25,7 @@ public:
 
     Mixer561AudioProcessor& audioProcessor;
 
-    //LabeledTextInputField bpmInput;
-    juce::Slider mixingStrengthSld;
-    juce::Slider originTrackAttenuationSld;
-    juce::ToggleButton bypassToggle;
-
-    juce::Label mixLabel;
-    juce::Label attenuationLabel;
-
     float* toneRMS; // Just pass the array here...
-
-    // There are two thresholds. The maximum energy we allow (we'll likely apply a fixed gain to the info we get)
-    // And the mute energy which, if not reached by a tone, we ignore it. These will be set by sliders and applied in the processor
-    float muteThreshold;
-    float clampThreshold;
 
 
 private:
