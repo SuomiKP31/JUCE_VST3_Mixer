@@ -14,7 +14,7 @@
 #include "PluginProcessor.h"
 
 
-class ToneFilterComponent : public juce::Component
+class ToneFilterComponent : public juce::Component, private juce::Timer
 {
 public:
     ToneFilterComponent(Mixer561AudioProcessor&);
@@ -25,10 +25,10 @@ public:
 
     Mixer561AudioProcessor& audioProcessor;
 
-    float* toneRMS; // Just pass the array here...
-
+    std::vector<juce::Rectangle<int>> toneBounds;
 
 private:
     std::vector<juce::Component*> getComponent();
+    void timerCallback();
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ToneFilterComponent)
 };

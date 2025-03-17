@@ -506,7 +506,7 @@ void Mixer561AudioProcessorEditor::resized()
     peakGainSlider.setBounds(bound.removeFromTop(bound.getHeight() * 0.5));
     peakQualitySlider.setBounds(bound);
 
-    logo = juce::ImageFileFormat::loadFrom(BinaryData::_561Mixer_png, BinaryData::_561Mixer_pngSize);
+    logo = juce::ImageFileFormat::loadFrom(BinaryData::Tonefilter575_png, BinaryData::Tonefilter575_pngSize);
 
     labels.clear();
     labels.add(KnobLabel(0.17f, "HPF"));

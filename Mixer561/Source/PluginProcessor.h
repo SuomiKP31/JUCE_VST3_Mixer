@@ -155,6 +155,7 @@ public:
     juce::AudioProcessorValueTreeState apvts{*this, nullptr, "AudioParameter", createParameterLayout()};
     //==============================================================================
     void SetToneFilterBypass(bool bypassed);
+    float toneRMS[48];
 
 private:
     //==============================================================================

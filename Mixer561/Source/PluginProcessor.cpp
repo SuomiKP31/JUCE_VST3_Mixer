@@ -220,7 +220,7 @@ void Mixer561AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
         float high_threshold = 0.1f * running_total_power;
         float low_threshold_divider =
             1.0f / std::max(0.00000000001f, low_threshold * low_threshold * low_threshold); // These lines are full of MAGIC
-
+        //floor_divider = low_threshold_divider;
         for (size_t tone = 0; tone < 48; tone++) {
             float ret = ToneBuffers[tone]->getSample(0, i);
             float new_power = ret * ret;
@@ -241,8 +241,10 @@ void Mixer561AudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
     for (size_t i = 0; i < 48; i++) {
         juce::dsp::AudioBlock<float> toneBlock(*ToneBuffers[i]);
         sideTrackBlock.add(toneBlock);
+        toneRMS[i] = ToneBuffers[i]->getRMSLevel(0, 0, ToneBuffers[i]->getNumSamples());
     }
     SideTrackBuffer->applyGain(tonePower);
+    
 
     // Original input gain
     buffer.applyGain(1.0f - atten);
